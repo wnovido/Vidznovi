@@ -22,4 +22,6 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
 		}
 
 	}
+
+
 ]);
