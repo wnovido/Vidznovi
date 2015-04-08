@@ -242,6 +242,8 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
 		}
 
 	}
+
+
 ]);
 
 'use strict';
