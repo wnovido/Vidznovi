@@ -197,6 +197,10 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 		state('home', {
 			url: '/',
 			templateUrl: 'modules/core/views/home.client.view.html'
+		}).
+		state('pictures', {
+			url: '/pictures',
+			templateUrl: 'modules/core/views/pictures.client.view.html'
 		});
 	}
 ]);
@@ -246,32 +250,30 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
 
 ]);
 
+/**
+ * Created by wilso_000 on 4/9/2015.
+ */
 'use strict';
 
+angular.module('core')
 
-angular.module('core').controller('HomeController', ['$scope', '$animate', 'Authentication',
-	function($scope, $animate, Authentication) {
-		// This provides Authentication context.
-		$scope.authentication = Authentication;
-		$animate.enabled(false);
+.controller('PictureController', ['$scope',
+    function($scope) {
+        // Aboutme controller logic
+        // ...
+        $scope.pictures = [{
+            filepath: 'modules/albums/places/1265282_10202300476172512_195772845_o.jpg'
+        },
+            {
+                filepath: 'modules/albums/places/1265390_10202300464212213_950848158_o.jpg'
+            },
+            {
+                filepath: 'modules/albums/places/1265744_10202300448531821_1722655269_o.jpg'
+            }
 
-		$scope.myInterval = 5000;
-		var slides = $scope.slides = [];
-		$scope.addSlide = function() {
-			var newWidth = slides.length + 1;
-			slides.push({
-				image: 'modules/core/img/slider/' + newWidth + '.jpg',
-				text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
-				['Gorgeous', 'Cutify', 'Felines', 'Cutes'][slides.length % 4]
-			});
-		};
-		for (var i=0; i<10; i++) {
-			$scope.addSlide();
-		}
-
-	}
+        ];
+    }
 ]);
-
 'use strict';
 
 //Menu service used for managing  menus
