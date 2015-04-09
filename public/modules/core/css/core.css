@@ -26,11 +26,16 @@
 }
 
 .edna {
-	height: auto;
-	width: 350px;
+	height: 525px;
+	width: auto;
 }
 .myFooter {
 	color: #FA787E;
-	background-color: rgb(51,51,51);
+	background-color: rgb(38,38,38);
 	height: 30px;
+}
+
+.whiteDgray {
+	color: white;
+	background-color: rgb(51,51,51);
 }
