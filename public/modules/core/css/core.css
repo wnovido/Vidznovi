@@ -28,7 +28,9 @@
 .edna {
 	height: 525px;
 	width: auto;
+	text-align: center;
 }
+
 .myFooter {
 	color: #FA787E;
 	background-color: rgb(38,38,38);

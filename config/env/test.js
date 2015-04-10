@@ -4,7 +4,7 @@ module.exports = {
 	db: 'mongodb://localhost/edna-novido-photography-test',
 	port: 3001,
 	app: {
-		title: 'Edna Novido Photography - Test Environment'
+		title: 'VidzNovi Photography - Test Environment'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',

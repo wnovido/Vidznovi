@@ -1,7 +1,7 @@
 {
 	"name": "edna-novido-photography",
 	"version": "0.0.1",
-	"description": "Edna Novido Photography, Full-Stack With MEAN",
+	"description": "VidzNovi Photography, Full-Stack With MEAN",
 	"dependencies": {
 		"bootstrap": "~3",
 		"angular": "~1.2",

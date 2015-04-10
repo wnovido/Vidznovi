@@ -2,8 +2,8 @@
 
 module.exports = {
 	app: {
-		title: 'Edna Novido Photography',
-		description: 'Edna Novido Photography, Full-Stack With MEAN',
+		title: 'VidzNovi Photography',
+		description: 'VidzNovi Photography, Full-Stack With MEAN',
 		keywords: 'MongoDB, Express, AngularJS, Node.js'
 	},
 	port: process.env.PORT || 3001,

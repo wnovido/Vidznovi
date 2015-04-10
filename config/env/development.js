@@ -3,7 +3,7 @@
 module.exports = {
 	db: 'mongodb://localhost/edna-novido-photography-dev',
 	app: {
-		title: 'Edna Novido Photography - Development Environment'
+		title: 'VidzNovi Photography - Development Environment'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',
