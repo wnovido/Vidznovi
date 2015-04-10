@@ -31,34 +31,34 @@ angular.module('core').controller('PictureController', ['$scope',
 
         $scope.picturesfaces = [
             {
-                filepath: 'modules/albums/B&W/DSC_4176.jpg'
+                filepath: 'modules/albums/faces/DSC_4176.jpg'
             },
             {
-                filepath: 'modules/albums/B&W/DSC_4192.jpg'
+                filepath: 'modules/albums/faces/DSC_4192.jpg'
             },
             {
-                filepath: 'modules/albums/B&W/DSC_4203.jpg'
+                filepath: 'modules/albums/faces/DSC_4203.jpg'
             },
             {
-                filepath: 'modules/albums/B&W/DSC_4207.jpg'
+                filepath: 'modules/albums/faces/DSC_4207.jpg'
             },
             {
-                filepath: 'modules/albums/B&W/DSC_4225.jpg'
+                filepath: 'modules/albums/faces/DSC_4225.jpg'
             },
             {
-                filepath: 'modules/albums/B&W/DSC_4226.jpg'
+                filepath: 'modules/albums/faces/DSC_4226.jpg'
             },
             {
-                filepath: 'modules/albums/B&W/DSC_4232.jpg'
+                filepath: 'modules/albums/faces/DSC_4232.jpg'
             },
             {
-                filepath: 'modules/albums/B&W/DSC_4272.jpg'
+                filepath: 'modules/albums/faces/DSC_4272.jpg'
             },
             {
-                filepath: 'modules/albums/B&W/DSC_4288.jpg'
+                filepath: 'modules/albums/faces/DSC_4288.jpg'
             },
             {
-                filepath: 'modules/albums/B&W/DSC_4299.jpg'
+                filepath: 'modules/albums/faces/DSC_4299.jpg'
             }
         ];
 
