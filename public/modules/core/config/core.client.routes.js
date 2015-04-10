@@ -13,7 +13,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			templateUrl: 'modules/core/views/home.client.view.html'
 		})
 		.state('pictures', {
-			url: '/pictures',
+			url: '/pictures/:flagId',
 			templateUrl: 'modules/core/views/pictures.client.view.html'
 		})
 		.state('faces', {
