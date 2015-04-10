@@ -199,7 +199,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			templateUrl: 'modules/core/views/home.client.view.html'
 		})
 		.state('pictures', {
-			url: '/pictures',
+			url: '/pictures/:flagId',
 			templateUrl: 'modules/core/views/pictures.client.view.html'
 		})
 		.state('faces', {
@@ -265,9 +265,10 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
  */
 'use strict';
 
-angular.module('core').controller('PictureController', ['$scope',
-    function($scope) {
-        $scope.pictures = [
+angular.module('core').controller('PictureController', ['$scope','$stateParams',
+    function($scope, $stateParams) {
+        var pictArray = [];
+        pictArray[0] = [
             {
                 filepath: 'modules/core/img/slider/1.jpg'
             },
@@ -277,8 +278,7 @@ angular.module('core').controller('PictureController', ['$scope',
         ];
 
 
-
-        $scope.picturesbw = [
+        pictArray[2] = [
             {
                 filepath: 'modules/core/img/slider/5.jpg'
             },
@@ -288,7 +288,7 @@ angular.module('core').controller('PictureController', ['$scope',
         ];
 
 
-        $scope.picturesfaces = [
+        pictArray[1] = [
             {
                 filepath: 'modules/core/img/slider/3.jpg'
             },
@@ -297,6 +297,7 @@ angular.module('core').controller('PictureController', ['$scope',
             }
         ];
 
+        $scope.pictures = pictArray[$stateParams.flagId];
     }
 ]);
 
