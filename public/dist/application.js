@@ -269,15 +269,28 @@ angular.module('core').controller('PictureController', ['$scope',
     function($scope) {
         $scope.pictures = [
             {
-            filepath: 'modules/albums/places/1265282_10202300476172512_195772845_o.jpg'
+                filepath: 'modules/albums/places/DSC_0009.jpg'
             },
             {
-                filepath: 'modules/albums/places/1265390_10202300464212213_950848158_o.jpg'
+                filepath: 'modules/albums/places/DSC_0864.jpg'
             },
             {
-                filepath: 'modules/albums/places/1265744_10202300448531821_1722655269_o.jpg'
+                filepath: 'modules/albums/places/DSC_0914.jpg'
+            },
+            {
+                filepath: 'modules/albums/places/DSC_1710.jpg'
+            },
+            {
+                filepath: 'modules/albums/places/DSC_1744.jpg'
+            },
+            {
+                filepath: 'modules/albums/places/DSC_1834.jpg'
+            },
+            {
+                filepath: 'modules/albums/places/DSC_1859.jpg'
             }
         ];
+
 
         $scope.picturesbw = [
             {
