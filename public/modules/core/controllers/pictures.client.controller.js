@@ -15,7 +15,6 @@ angular.module('core').controller('PictureController', ['$scope',
         ];
 
 
-
         $scope.picturesbw = [
             {
                 filepath: 'modules/core/img/slider/5.jpg'
