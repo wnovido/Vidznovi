@@ -17,19 +17,19 @@ angular.module('core').controller('PictureController', ['$scope',
 
         $scope.picturesbw = [
             {
-                filepath: 'modules/core/img/slider/3.jpg'
+                filepath: 'modules/core/img/slider/5.jpg'
             },
             {
-                filepath: 'modules/core/img/slider/4.jpg'
+                filepath: 'modules/core/img/slider/6.jpg'
             }
         ];
 
         $scope.picturesfaces = [
             {
-                filepath: 'modules/core/img/slider/5.jpg'
+                filepath: 'modules/core/img/slider/3.jpg'
             },
             {
-                filepath: 'modules/core/img/slider/6.jpg'
+                filepath: 'modules/core/img/slider/4.jpg'
             }
         ];
 
