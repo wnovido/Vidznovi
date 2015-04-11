@@ -21,7 +21,13 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
 			$scope.addSlide();
 		}
 
+		$scope.tabs = [
+			{ title:'Portraits', content:'Album 1', showFlag: 1 },
+			{ title:'Real Estate', content:'Album 2', showFlag: 0 },
+			{ title:'Fine Arts', content:'Album 3', showFlag: 1 },
+			{ title:'Events', content:'Album 4', showFlag: 0 },
+			{ title:'Sports', content:'Album 5', showFlag: 1 }
+		];
+
 	}
-
-
 ]);
