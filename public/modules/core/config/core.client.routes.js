@@ -16,14 +16,6 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			url: '/pictures/:flagId',
 			templateUrl: 'modules/core/views/pictures.client.view.html'
 		})
-		.state('faces', {
-			url: '/picturesfaces',
-			templateUrl: 'modules/core/views/picturesfaces.client.view.html'
-		})
-		.state('b&w', {
-			url: '/picturesb&w',
-			templateUrl: 'modules/core/views/picturesbw.client.view.html'
-		})
 
 		;
 	}
