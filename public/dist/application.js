@@ -202,14 +202,6 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			url: '/pictures/:flagId',
 			templateUrl: 'modules/core/views/pictures.client.view.html'
 		})
-		.state('faces', {
-			url: '/picturesfaces',
-			templateUrl: 'modules/core/views/picturesfaces.client.view.html'
-		})
-		.state('b&w', {
-			url: '/picturesb&w',
-			templateUrl: 'modules/core/views/picturesbw.client.view.html'
-		})
 
 		;
 	}
@@ -235,8 +227,8 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 'use strict';
 
 
-angular.module('core').controller('HomeController', ['$scope', '$animate', 'Authentication',
-	function($scope, $animate, Authentication) {
+angular.module('core').controller('HomeController', ['$scope', '$animate', 'Authentication', 'Albums',
+	function($scope, $animate, Authentication, Albums) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
 		$animate.enabled(false);
@@ -255,9 +247,36 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
 			$scope.addSlide();
 		}
 
+		$scope.tabs = [
+			{ tab_id:111, name:'Portraits', showFlag: 1 },
+			{ tab_id:222, name:'Real Estate', showFlag: 1 },
+			{ tab_id:333, name:'Fine Arts', showFlag: 1 },
+			{ tab_id:444, name:'Events', showFlag: 1 },
+			{ tab_id:555, name:'Sports', showFlag: 1 }
+		];
+
+		$scope.albums = [
+			{ album_id: 1, name:'His', tab_id:111, showFlag: 1, thumbnail: 1 },
+			{ album_id: 2, name:'Hers', tab_id:111, showFlag: 0, thumbnail: 3 },
+			{ album_id: 3, name:'Interiors', tab_id:222, showFlag: 0, thumbnail: 5 },
+			{ album_id: 4, name:'Exteriors', tab_id:222, showFlag: 0, thumbnail: 7 },
+			{ album_id: 5, name:'Flowers', tab_id:333, showFlag: 0, thumbnail: 9 },
+			{ album_id: 6, name:'Birds', tab_id:333, showFlag: 0, thumbnail: 11 },
+			{ album_id: 7, name:'Landscape', tab_id:333, showFlag: 0, thumbnail: 13 },
+			{ album_id: 8, name:'Weddings', tab_id:444, showFlag: 0, thumbnail: 15 },
+			{ album_id: 9, name:'Proms', tab_id:444, showFlag: 0, thumbnail: 17 },
+			{ album_id: 10, name:'Birthdays', tab_id:444, showFlag: 0, thumbnail: 19 },
+			{ album_id: 11, name:'Basketball', tab_id:555, showFlag: 0, thumbnail: 20 }
+		];
+
+		// Find a list of Albums
+	//	$scope.find = function() {
+	//		$scope.albums = Albums.query();
+	//	};
+
+
+
 	}
-
-
 ]);
 
 /**
@@ -294,6 +313,76 @@ angular.module('core').controller('PictureController', ['$scope','$stateParams',
             },
             {
                 filepath: 'modules/core/img/slider/4.jpg'
+            }
+        ];
+
+        pictArray[3] = [
+            {
+                filepath: 'modules/core/img/slider/7.jpg'
+            },
+            {
+                filepath: 'modules/core/img/slider/8.jpg'
+            }
+        ];
+
+        pictArray[4] = [
+            {
+                filepath: 'modules/core/img/slider/9.jpg'
+            },
+            {
+                filepath: 'modules/core/img/slider/10.jpg'
+            }
+        ];
+
+
+        pictArray[5] = [
+            {
+                filepath: 'modules/core/img/slider/11.jpg'
+            },
+            {
+                filepath: 'modules/core/img/slider/12.jpg'
+            }
+        ];
+
+
+        pictArray[6] = [
+            {
+                filepath: 'modules/core/img/slider/13.jpg'
+            },
+            {
+                filepath: 'modules/core/img/slider/14.jpg'
+            }
+        ];
+
+        pictArray[7] = [
+            {
+                filepath: 'modules/core/img/slider/15.jpg'
+            },
+            {
+                filepath: 'modules/core/img/slider/16.jpg'
+            }
+        ];
+
+        pictArray[8] = [
+            {
+                filepath: 'modules/core/img/slider/17.jpg'
+            },
+            {
+                filepath: 'modules/core/img/slider/18.jpg'
+            }
+        ];
+
+
+        pictArray[9] = [
+            {
+                filepath: 'modules/core/img/slider/19.jpg'
+            }
+        ];
+
+
+        pictArray[10] = [
+            {
+                filepath: 'modules/core/img/slider/20.jpg'
             }
         ];
 
