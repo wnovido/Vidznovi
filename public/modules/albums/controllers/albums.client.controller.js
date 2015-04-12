@@ -9,7 +9,8 @@ angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams
 		$scope.create = function() {
 			// Create new Album object
 			var album = new Albums ({
-				name: this.name
+				name: this.name,
+				thumbnail: this.thumbnail
 			});
 
 			// Redirect after save

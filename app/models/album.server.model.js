@@ -16,6 +16,12 @@ var AlbumSchema = new Schema({
 		required: 'Please fill Album name',
 		trim: true
 	},
+	thumbnail: {
+		type: String,
+		default: '',
+		required: 'Please fill Thumbnail name',
+		trim: true
+	},
 	created: {
 		type: Date,
 		default: Date.now
