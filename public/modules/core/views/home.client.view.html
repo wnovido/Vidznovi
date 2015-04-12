@@ -17,23 +17,16 @@
 
 
 		<div class="row">
+
 			<tabset>
-				<!--<tab heading="Static title">Static content</tab>-->
-				<tab ng-repeat="tab in tabs" heading="{{tab.title}}"  data-ng-show="tab.showFlag == 1" active="tab.active" disabled="tab.disabled">
+				<tab ng-repeat="tab in tabs" heading="{{tab.name}}"  data-ng-show="tab.showFlag == 1" class="">
 					<div class="col-md-4" data-ng-repeat="album in albums | filter:tab.tab_id">
 						<h2>
-							{{album.title}}
+							{{album.name}}
 						</h2>
-						<p><a href="/#!/pictures/{{album.album_id-1}}" class="thumb"><img ng-src="modules/core/img/slider/{{album.album_id}}.jpg" class="thumb-big"></a></p>
+						<p><a href="/#!/pictures/{{album.album_id-1}}" class="thumb"><img ng-src="modules/core/img/slider/{{album.thumbnail}}.jpg" class="thumb-big"></a></p>
 					</div>
 				</tab>
-
-				<!--<tab select="alertMe()">-->
-					<!--<tab-heading>-->
-						<!--<i class="glyphicon glyphicon-bell"></i> Alert!-->
-					<!--</tab-heading>-->
-					<!--I've got an HTML heading, and a select callback. Pretty cool!-->
-				<!--</tab>-->
 
 			</tabset>
 
