@@ -1,8 +1,8 @@
 'use strict';
 
 // Albums controller
-angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Albums',
-	function($scope, $stateParams, $location, Authentication, Albums) {
+angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Albums', 'Albumgroups',
+	function($scope, $stateParams, $location, Authentication, Albums, Albumgroups) {
 		$scope.authentication = Authentication;
 
 		// Create new Album
@@ -10,7 +10,8 @@ angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams
 			// Create new Album object
 			var album = new Albums ({
 				name: this.name,
-				thumbnail: this.thumbnail
+				thumbnail: this.thumbnail,
+				albumgroupid: this.albumgroupid
 			});
 
 			// Redirect after save
@@ -63,5 +64,8 @@ angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams
 				albumId: $stateParams.albumId
 			});
 		};
+
+		$scope.albumgroups = Albumgroups.query();
+
 	}
 ]);

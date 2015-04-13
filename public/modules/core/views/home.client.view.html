@@ -19,11 +19,11 @@
 		<div class="row">
 
 			<tabset>
-				<tab ng-repeat="tab in tabs" heading="{{tab.name}}"  data-ng-show="tab.showFlag == 1" class="">
-					<div class="col-md-4" data-ng-repeat="album in albums | filter:tab.tab_id">
+				<tab ng-repeat="tab in tabs" heading="{{tab.name}}" >
+					<div class="col-md-4" data-ng-repeat="album in albums | filter:tab._id">
 						<h2>
 							{{album.name}}
-						</h2>
+						</h2>git
 						<p><a href="/#!/pictures/{{album.album_id-1}}" class="thumb"><img ng-src="modules/core/img/slider/{{album.thumbnail}}.jpg" class="thumb-big"></a></p>
 					</div>
 				</tab>

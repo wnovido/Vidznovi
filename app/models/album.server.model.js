@@ -22,6 +22,10 @@ var AlbumSchema = new Schema({
 		required: 'Please fill Thumbnail name',
 		trim: true
 	},
+	albumgroupid: {
+		type: Schema.ObjectId,
+		ref: 'Albumgroups'
+	},
 	created: {
 		type: Date,
 		default: Date.now
