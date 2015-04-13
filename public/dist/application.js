@@ -200,7 +200,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 		})
 		.state('pictures', {
 			url: '/pictures/:flagId',
-			templateUrl: 'modules/core/views/pictures.client.view.html'
+			templateUrl: 'modules/core/views/pictures.render.client.view.html'
 		})
 
 		;

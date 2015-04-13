@@ -1,0 +1,8 @@
+<section data-ng-controller="PictureRenderController">
+    <ul>
+        <li data-ng-repeat="picture in pictures | filter:albumid">
+            <p class="whiteDgray">{{picture.name}}</p>
+            <img data-ng-src="{{pathname + picture.filename}}" class="edna"><br><br>
+        </li>
+    </ul><br>
+</section>

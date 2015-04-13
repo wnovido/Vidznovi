@@ -17,41 +17,18 @@
 
 
 		<div class="row">
-
 			<tabset>
 				<tab ng-repeat="tab in tabs" heading="{{tab.name}}" >
 					<div class="col-md-4" data-ng-repeat="album in albums | filter:tab._id">
 						<h2>
 							{{album.name}}
-						</h2>git
-						<p><a href="/#!/pictures/{{album.album_id-1}}" class="thumb"><img ng-src="modules/core/img/slider/{{album.thumbnail}}.jpg" class="thumb-big"></a></p>
+						</h2>
+						<p><a href="/#!/pictures_render/{{album._id}}" class="thumb"><img ng-src="modules/core/img/slider/{{album.thumbnail}}.jpg" class="thumb-big"></a></p>
 					</div>
 				</tab>
 
 			</tabset>
-
-
-			<!--<div class="col-md-4">-->
-				<!--<h2>-->
-					<!--<strong>P</strong>laces-->
-				<!--</h2>-->
-				<!--<p><a href="/#!/pictures/0" class="thumb"><img ng-src="modules/core/img/slider/1.jpg" class="thumb-big"></a></p>-->
-			<!--</div>-->
-<!---->
-			<!--<div class="col-md-4">-->
-				<!--<h2>-->
-					<!--<strong>A</strong>rchitecture-->
-				<!--</h2>-->
-				<!--<a><a href="/#!/pictures/1" class="thumb"><img ng-src="modules/core/img/slider/3.jpg" class="thumb-big"></a></p>-->
-			<!--</div>-->
-<!---->
-			<!--<div class="col-md-4">-->
-				<!--<h2>-->
-					<!--<strong>L</strong>andscape-->
-				<!--</h2>-->
-				<!--<a><a href="/#!/pictures/2" class="thumb"><img ng-src="modules/core/img/slider/5.jpg" class="thumb-big"></a></p>-->
-			<!--</div>-->
-
+		</div>
 	</div>
 
 </section>

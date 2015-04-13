@@ -12,9 +12,9 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			url: '/',
 			templateUrl: 'modules/core/views/home.client.view.html'
 		})
-		.state('pictures', {
-			url: '/pictures/:flagId',
-			templateUrl: 'modules/core/views/pictures.client.view.html'
+		.state('pictures_render', {
+			url: '/pictures_render/:albumid',
+			templateUrl: 'modules/core/views/pictures.render.client.view.html'
 		})
 
 		;
