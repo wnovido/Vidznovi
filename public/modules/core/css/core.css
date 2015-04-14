@@ -150,3 +150,17 @@ fieldset[disabled] .navbar-inverse-edna .btn-link:hover,
 fieldset[disabled] .navbar-inverse-edna .btn-link:focus {
 	color: #444;
 }
+
+
+
+.nav-tabs > li.new > a {
+	padding-top: 5px;
+}
+.nav-tabs > .new > a:after {
+	content: "NEW";
+	color: indianred;
+	font-size: 10px;
+	vertical-align: super;
+	padding-left: 2px;
+	background-color: red;
+}
