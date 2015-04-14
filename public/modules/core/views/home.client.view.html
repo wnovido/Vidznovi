@@ -17,8 +17,8 @@
 
 
 		<div class="row">
-			<tabset>
-				<tab ng-repeat="tab in tabs" heading="{{tab.name}}" >
+			<tabset class="whiteOnBlack">
+				<tab ng-repeat="tab in tabs" heading="{{tab.name}}">
 					<div class="col-md-4" data-ng-repeat="album in albums | filter:tab._id">
 						<h2>
 							{{album.name}}

@@ -10,6 +10,15 @@
                     <div class="controls">
                         <input type="text" data-ng-model="album.name" id="name" class="form-control" placeholder="Name" required>
                     </div>
+                    <label class="control-label" for="thumbnail">Thumbnail</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="album.thumbnail" id="thumbnail" class="form-control" placeholder="Thumbnail" required>
+                    </div>
+                    <label class="control-label" for="albumgroupid">Album Group</label>
+                    <div class="controls">
+                        <select id="albumgroupid" class="form-control" ng-options="albumgroup._id as albumgroup.name for albumgroup in albumgroups | orderBy:'name'" ng-model="album.albumgroupid"></select>
+                    </div>
+
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Update" class="btn btn-default">

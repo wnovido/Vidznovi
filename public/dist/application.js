@@ -232,10 +232,6 @@ angular.module('albums').config(['$stateProvider',
 	function($stateProvider) {
 		// Albums state routing
 		$stateProvider.
-		state('aboutme', {
-			url: '/aboutme',
-			templateUrl: 'modules/albums/views/aboutme.client.view.html'
-		}).
 		state('listAlbums', {
 			url: '/albums',
 			templateUrl: 'modules/albums/views/list-albums.client.view.html'

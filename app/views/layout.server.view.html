@@ -44,13 +44,13 @@
 
 	<style>
 		body {
-			background-color: rgb(38,38,38);
+			background-color: black;
 		}
 	</style>
 </head>
 
-<body class="ng-cloak">
-	<header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
+<body class="ng-cloak whiteOnBlack">
+	<header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse-edna"></header>
 	<section class="content">
 		<section class="container">
 			{% block content %}{% endblock %}
@@ -69,7 +69,7 @@
 	<!--Livereload script rendered -->
 	<script type="text/javascript" src="http://{{request.hostname}}:35729/livereload.js"></script>
 	{% endif %}
-	<div class="text-center myFooter">Web Developer: Wilson Novido <span app-version></span></div>
+	<div class="text-center">Web Developer: Wilson Novido <span app-version></span></div>
 </body>
 
 </html>
