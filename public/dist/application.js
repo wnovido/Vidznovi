@@ -43,6 +43,15 @@ angular.element(document).ready(function() {
 });
 'use strict';
 
+// Use application configuration module to register a new module
+ApplicationConfiguration.registerModule('about-me');
+
+'use strict';
+
+// Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('albumgroups');
+'use strict';
+
 // Use applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('albums');
 'use strict';
@@ -51,8 +60,158 @@ ApplicationConfiguration.registerModule('albums');
 ApplicationConfiguration.registerModule('core');
 'use strict';
 
+// Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('pictures');
+'use strict';
+
 // Use Applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('users');
+'use strict';
+
+// Configuring the Articles module
+angular.module('about-me').run(['Menus',
+	function(Menus) {
+		// Set top bar menu items
+		Menus.addMenuItem('topbar', 'About Me', 'about-me', 'item', '/about-me');
+	}
+]);
+
+'use strict';
+
+//Setting up route
+angular.module('about-me').config(['$stateProvider',
+	function($stateProvider) {
+		// About me state routing
+		$stateProvider.
+		state('about-me', {
+			url: '/about-me',
+			templateUrl: 'modules/about-me/views/about-me.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+angular.module('about-me').controller('AboutMeController', ['$scope',
+	function($scope) {
+		// Controller Logic
+		// ...
+	}
+]);
+'use strict';
+
+// Configuring the Articles module
+angular.module('albumgroups').run(['Menus',
+	function(Menus) {
+		// Set top bar menu items
+		Menus.addMenuItem('topbar', 'Albumgroups', 'albumgroups', 'dropdown', '/albumgroups(/create)?');
+		Menus.addSubMenuItem('topbar', 'albumgroups', 'List Albumgroups', 'albumgroups');
+		Menus.addSubMenuItem('topbar', 'albumgroups', 'New Albumgroup', 'albumgroups/create');
+	}
+]);
+'use strict';
+
+//Setting up route
+angular.module('albumgroups').config(['$stateProvider',
+	function($stateProvider) {
+		// Albumgroups state routing
+		$stateProvider.
+		state('listAlbumgroups', {
+			url: '/albumgroups',
+			templateUrl: 'modules/albumgroups/views/list-albumgroups.client.view.html'
+		}).
+		state('createAlbumgroup', {
+			url: '/albumgroups/create',
+			templateUrl: 'modules/albumgroups/views/create-albumgroup.client.view.html'
+		}).
+		state('viewAlbumgroup', {
+			url: '/albumgroups/:albumgroupId',
+			templateUrl: 'modules/albumgroups/views/view-albumgroup.client.view.html'
+		}).
+		state('editAlbumgroup', {
+			url: '/albumgroups/:albumgroupId/edit',
+			templateUrl: 'modules/albumgroups/views/edit-albumgroup.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+// Albumgroups controller
+angular.module('albumgroups').controller('AlbumgroupsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Albumgroups',
+	function($scope, $stateParams, $location, Authentication, Albumgroups) {
+		$scope.authentication = Authentication;
+
+		// Create new Albumgroup
+		$scope.create = function() {
+			// Create new Albumgroup object
+			var albumgroup = new Albumgroups ({
+				name: this.name
+			});
+
+			// Redirect after save
+			albumgroup.$save(function(response) {
+				$location.path('albumgroups/' + response._id);
+
+				// Clear form fields
+				$scope.name = '';
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Remove existing Albumgroup
+		$scope.remove = function(albumgroup) {
+			if ( albumgroup ) { 
+				albumgroup.$remove();
+
+				for (var i in $scope.albumgroups) {
+					if ($scope.albumgroups [i] === albumgroup) {
+						$scope.albumgroups.splice(i, 1);
+					}
+				}
+			} else {
+				$scope.albumgroup.$remove(function() {
+					$location.path('albumgroups');
+				});
+			}
+		};
+
+		// Update existing Albumgroup
+		$scope.update = function() {
+			var albumgroup = $scope.albumgroup;
+
+			albumgroup.$update(function() {
+				$location.path('albumgroups/' + albumgroup._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Find a list of Albumgroups
+		$scope.find = function() {
+			$scope.albumgroups = Albumgroups.query();
+		};
+
+		// Find existing Albumgroup
+		$scope.findOne = function() {
+			$scope.albumgroup = Albumgroups.get({ 
+				albumgroupId: $stateParams.albumgroupId
+			});
+		};
+	}
+]);
+'use strict';
+
+//Albumgroups service used to communicate Albumgroups REST endpoints
+angular.module('albumgroups').factory('Albumgroups', ['$resource',
+	function($resource) {
+		return $resource('albumgroups/:albumgroupId', { albumgroupId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
+	}
+]);
 'use strict';
 
 // Configuring the Articles module
@@ -62,7 +221,7 @@ angular.module('albums').run(['Menus',
 		Menus.addMenuItem('topbar', 'Albums', 'albums', 'dropdown', '/albums(/create)?');
 		Menus.addSubMenuItem('topbar', 'albums', 'List Albums', 'albums');
 		Menus.addSubMenuItem('topbar', 'albums', 'New Album', 'albums/create');
-		Menus.addMenuItem('topbar', 'About Me', 'aboutme', 'item', '/aboutme');
+		//Menus.addMenuItem('topbar', 'About Me', 'aboutme', 'item', '/aboutme');
 	}
 ]);
 
@@ -108,15 +267,17 @@ angular.module('albums').controller('AboutmeController', ['$scope',
 'use strict';
 
 // Albums controller
-angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Albums',
-	function($scope, $stateParams, $location, Authentication, Albums) {
+angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Albums', 'Albumgroups',
+	function($scope, $stateParams, $location, Authentication, Albums, Albumgroups) {
 		$scope.authentication = Authentication;
 
 		// Create new Album
 		$scope.create = function() {
 			// Create new Album object
 			var album = new Albums ({
-				name: this.name
+				name: this.name,
+				thumbnail: this.thumbnail,
+				albumgroupid: this.albumgroupid
 			});
 
 			// Redirect after save
@@ -169,6 +330,9 @@ angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams
 				albumId: $stateParams.albumId
 			});
 		};
+
+		$scope.albumgroups = Albumgroups.query();
+
 	}
 ]);
 'use strict';
@@ -198,8 +362,8 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			url: '/',
 			templateUrl: 'modules/core/views/home.client.view.html'
 		})
-		.state('pictures', {
-			url: '/pictures/:flagId',
+		.state('pictures_render', {
+			url: '/pictures_render/:albumid',
 			templateUrl: 'modules/core/views/pictures.render.client.view.html'
 		})
 
@@ -227,8 +391,8 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 'use strict';
 
 
-angular.module('core').controller('HomeController', ['$scope', '$animate', 'Authentication', 'Albums',
-	function($scope, $animate, Authentication, Albums) {
+angular.module('core').controller('HomeController', ['$scope', '$animate', 'Authentication', 'Albums', 'Albumgroups',
+	function($scope, $animate, Authentication, Albums, Albumgroups) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
 		$animate.enabled(false);
@@ -247,33 +411,8 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
 			$scope.addSlide();
 		}
 
-		$scope.tabs = [
-			{ tab_id:111, name:'Portraits', showFlag: 1 },
-			{ tab_id:222, name:'Real Estate', showFlag: 1 },
-			{ tab_id:333, name:'Fine Arts', showFlag: 1 },
-			{ tab_id:444, name:'Events', showFlag: 1 },
-			{ tab_id:555, name:'Sports', showFlag: 1 }
-		];
-
-		$scope.albums = [
-			{ album_id: 1, name:'His', tab_id:111, showFlag: 1, thumbnail: 1 },
-			{ album_id: 2, name:'Hers', tab_id:111, showFlag: 0, thumbnail: 3 },
-			{ album_id: 3, name:'Interiors', tab_id:222, showFlag: 0, thumbnail: 5 },
-			{ album_id: 4, name:'Exteriors', tab_id:222, showFlag: 0, thumbnail: 7 },
-			{ album_id: 5, name:'Flowers', tab_id:333, showFlag: 0, thumbnail: 9 },
-			{ album_id: 6, name:'Birds', tab_id:333, showFlag: 0, thumbnail: 11 },
-			{ album_id: 7, name:'Landscape', tab_id:333, showFlag: 0, thumbnail: 13 },
-			{ album_id: 8, name:'Weddings', tab_id:444, showFlag: 0, thumbnail: 15 },
-			{ album_id: 9, name:'Proms', tab_id:444, showFlag: 0, thumbnail: 17 },
-			{ album_id: 10, name:'Birthdays', tab_id:444, showFlag: 0, thumbnail: 19 },
-			{ album_id: 11, name:'Basketball', tab_id:555, showFlag: 0, thumbnail: 20 }
-		];
-
-		// Find a list of Albums
-	//	$scope.find = function() {
-	//		$scope.albums = Albums.query();
-	//	};
-
+		$scope.tabs = Albumgroups.query();
+		$scope.albums = Albums.query();
 
 
 	}
@@ -284,109 +423,13 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
  */
 'use strict';
 
-angular.module('core').controller('PictureController', ['$scope','$stateParams',
-    function($scope, $stateParams) {
-        var pictArray = [];
-        pictArray[0] = [
-            {
-                filepath: 'modules/core/img/slider/1.jpg'
-            },
-            {
-                filepath: 'modules/core/img/slider/2.jpg'
-            }
-        ];
+angular.module('core').controller('PictureRenderController', ['$scope','$stateParams', 'Pictures',
+    function($scope, $stateParams, Pictures) {
 
+        $scope.pathname = 'modules/core/img/slider/';
+        $scope.pictures = Pictures.query();
+        $scope.albumid = $stateParams.albumid;
 
-        pictArray[2] = [
-            {
-                filepath: 'modules/core/img/slider/5.jpg'
-            },
-            {
-                filepath: 'modules/core/img/slider/6.jpg'
-            }
-        ];
-
-
-        pictArray[1] = [
-            {
-                filepath: 'modules/core/img/slider/3.jpg'
-            },
-            {
-                filepath: 'modules/core/img/slider/4.jpg'
-            }
-        ];
-
-        pictArray[3] = [
-            {
-                filepath: 'modules/core/img/slider/7.jpg'
-            },
-            {
-                filepath: 'modules/core/img/slider/8.jpg'
-            }
-        ];
-
-        pictArray[4] = [
-            {
-                filepath: 'modules/core/img/slider/9.jpg'
-            },
-            {
-                filepath: 'modules/core/img/slider/10.jpg'
-            }
-        ];
-
-
-        pictArray[5] = [
-            {
-                filepath: 'modules/core/img/slider/11.jpg'
-            },
-            {
-                filepath: 'modules/core/img/slider/12.jpg'
-            }
-        ];
-
-
-        pictArray[6] = [
-            {
-                filepath: 'modules/core/img/slider/13.jpg'
-            },
-            {
-                filepath: 'modules/core/img/slider/14.jpg'
-            }
-        ];
-
-        pictArray[7] = [
-            {
-                filepath: 'modules/core/img/slider/15.jpg'
-            },
-            {
-                filepath: 'modules/core/img/slider/16.jpg'
-            }
-        ];
-
-        pictArray[8] = [
-            {
-                filepath: 'modules/core/img/slider/17.jpg'
-            },
-            {
-                filepath: 'modules/core/img/slider/18.jpg'
-            }
-        ];
-
-
-        pictArray[9] = [
-            {
-                filepath: 'modules/core/img/slider/19.jpg'
-            }
-        ];
-
-
-        pictArray[10] = [
-            {
-                filepath: 'modules/core/img/slider/20.jpg'
-            }
-        ];
-
-        $scope.pictures = pictArray[$stateParams.flagId];
     }
 ]);
 
@@ -554,6 +597,125 @@ angular.module('core').service('Menus', [
 
 		//Adding the topbar menu
 		this.addMenu('topbar');
+	}
+]);
+'use strict';
+
+// Configuring the Articles module
+angular.module('pictures').run(['Menus',
+	function(Menus) {
+		// Set top bar menu items
+		Menus.addMenuItem('topbar', 'Pictures', 'pictures', 'dropdown', '/pictures(/create)?');
+		Menus.addSubMenuItem('topbar', 'pictures', 'List Pictures', 'pictures');
+		Menus.addSubMenuItem('topbar', 'pictures', 'New Picture', 'pictures/create');
+	}
+]);
+'use strict';
+
+//Setting up route
+angular.module('pictures').config(['$stateProvider',
+	function($stateProvider) {
+		// Pictures state routing
+		$stateProvider.
+		state('listPictures', {
+			url: '/pictures',
+			templateUrl: 'modules/pictures/views/list-pictures.client.view.html'
+		}).
+		state('createPicture', {
+			url: '/pictures/create',
+			templateUrl: 'modules/pictures/views/create-picture.client.view.html'
+		}).
+		state('viewPicture', {
+			url: '/pictures/:pictureId',
+			templateUrl: 'modules/pictures/views/view-picture.client.view.html'
+		}).
+		state('editPicture', {
+			url: '/pictures/:pictureId/edit',
+			templateUrl: 'modules/pictures/views/edit-picture.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+// Pictures controller
+angular.module('pictures').controller('PicturesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Pictures', 'Albums',
+	function($scope, $stateParams, $location, Authentication, Pictures, Albums) {
+		$scope.authentication = Authentication;
+
+		// Create new Picture
+		$scope.create = function() {
+			// Create new Picture object
+			var picture = new Pictures ({
+				name: this.name,
+				filename: this.filename,
+				albumid: this.albumid
+			});
+
+			// Redirect after save
+			picture.$save(function(response) {
+				$location.path('pictures/' + response._id);
+
+				// Clear form fields
+				$scope.name = '';
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Remove existing Picture
+		$scope.remove = function(picture) {
+			if ( picture ) { 
+				picture.$remove();
+
+				for (var i in $scope.pictures) {
+					if ($scope.pictures [i] === picture) {
+						$scope.pictures.splice(i, 1);
+					}
+				}
+			} else {
+				$scope.picture.$remove(function() {
+					$location.path('pictures');
+				});
+			}
+		};
+
+		// Update existing Picture
+		$scope.update = function() {
+			var picture = $scope.picture;
+
+			picture.$update(function() {
+				$location.path('pictures/' + picture._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Find a list of Pictures
+		$scope.find = function() {
+			$scope.pictures = Pictures.query();
+		};
+
+		// Find existing Picture
+		$scope.findOne = function() {
+			$scope.picture = Pictures.get({ 
+				pictureId: $stateParams.pictureId
+			});
+		};
+
+		$scope.albums = Albums.query();
+	}
+]);
+'use strict';
+
+//Pictures service used to communicate Pictures REST endpoints
+angular.module('pictures').factory('Pictures', ['$resource',
+	function($resource) {
+		return $resource('pictures/:pictureId', { pictureId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
 	}
 ]);
 'use strict';
