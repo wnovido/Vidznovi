@@ -56,6 +56,11 @@ ApplicationConfiguration.registerModule('albumgroups');
 ApplicationConfiguration.registerModule('albums');
 'use strict';
 
+// Use application configuration module to register a new module
+ApplicationConfiguration.registerModule('contact-us');
+
+'use strict';
+
 // Use Applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('core');
 'use strict';
@@ -232,6 +237,10 @@ angular.module('albums').config(['$stateProvider',
 	function($stateProvider) {
 		// Albums state routing
 		$stateProvider.
+		state('aboutme', {
+			url: '/aboutme',
+			templateUrl: 'modules/albums/views/aboutme.client.view.html'
+		}).
 		state('listAlbums', {
 			url: '/albums',
 			templateUrl: 'modules/albums/views/list-albums.client.view.html'
@@ -250,16 +259,6 @@ angular.module('albums').config(['$stateProvider',
 		});
 	}
 ]);
-'use strict';
-
-angular.module('albums').controller('AboutmeController', ['$scope',
-	function($scope) {
-		// Aboutme controller logic
-		// ...
-		$scope.text = 'Edna';
-	}
-]);
-
 'use strict';
 
 // Albums controller
@@ -342,6 +341,27 @@ angular.module('albums').factory('Albums', ['$resource',
 				method: 'PUT'
 			}
 		});
+	}
+]);
+'use strict';
+
+//Setting up route
+angular.module('contact-us').config(['$stateProvider',
+	function($stateProvider) {
+		// Contact us state routing
+		$stateProvider.
+		state('contact-us', {
+			url: '/contact-us',
+			templateUrl: 'modules/contact-us/views/contact-us.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+angular.module('contact-us').controller('ContactUsController', ['$scope',
+	function($scope) {
+		// Controller Logic
+		// ...
 	}
 ]);
 'use strict';
