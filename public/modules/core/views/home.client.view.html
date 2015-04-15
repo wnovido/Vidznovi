@@ -15,9 +15,10 @@
 			</carousel>
 		</div>
 
+		<img ng-src="modules/photoalbums/me1.jpg" class="thumb-big">
 
 		<div class="row">
-			<tabset>
+			<tabset >
 				<tab ng-repeat="tab in tabs">
 					<tab-heading ng-class="{new:tab.new}">{{tab.name}}</tab-heading>
 					<div class="col-md-4" data-ng-repeat="album in albums | filter:tab._id">
