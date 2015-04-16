@@ -7,6 +7,5 @@ angular.module('albums').run(['Menus',
 		Menus.addMenuItem('topbar', 'Albums', 'albums', 'dropdown', '/albums(/create)?');
 		Menus.addSubMenuItem('topbar', 'albums', 'List Albums', 'albums');
 		Menus.addSubMenuItem('topbar', 'albums', 'New Album', 'albums/create');
-		//Menus.addMenuItem('topbar', 'About Me', 'aboutme', 'item', '/aboutme');
 	}
 ]);

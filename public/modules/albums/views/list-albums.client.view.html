@@ -2,7 +2,7 @@
     <div class="page-header">
         <h1>Albums</h1>
     </div>
-    <div class="list-group">
+    <div class="list-group">{{albums}}
         <a data-ng-repeat="album in albums" data-ng-href="#!/albums/{{album._id}}" class="list-group-item">
 			<small class="list-group-item-text">
 				Posted on
@@ -12,7 +12,8 @@
 			</small>
 			<h4 class="list-group-item-heading" data-ng-bind="album.name"></h4>
             <h4 class="list-group-item-heading" data-ng-bind="album.thumbnail"></h4>
-            <h4 class="list-group-item-heading" data-ng-bind="album.albumgroupid"></h4>
+            <h4 class="list-group-item-heading" data-ng-bind="album.albumgroup.name"></h4>
+
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!albums.$resolved || albums.length">

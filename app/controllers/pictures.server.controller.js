@@ -73,7 +73,7 @@ exports.delete = function(req, res) {
  * List of Pictures
  */
 exports.list = function(req, res) { 
-	Picture.find().sort('-created').populate('user', 'displayName').exec(function(err, pictures) {
+	Picture.find().sort('-created').populate('user', 'displayName').populate('album', 'name').exec(function(err, pictures) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)

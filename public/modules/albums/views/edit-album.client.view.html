@@ -14,9 +14,9 @@
                     <div class="controls">
                         <input type="text" data-ng-model="album.thumbnail" id="thumbnail" class="form-control" placeholder="Thumbnail" required>
                     </div>
-                    <label class="control-label" for="albumgroupid">Album Group</label>
+                    <label class="control-label" for="albumgroup">Album Group</label>
                     <div class="controls">
-                        <select id="albumgroupid" class="form-control" ng-options="albumgroup._id as albumgroup.name for albumgroup in albumgroups | orderBy:'name'" ng-model="album.albumgroupid"></select>
+                        <select id="albumgroup" class="form-control" ng-options="albumgroup._id as albumgroup.name for albumgroup in albumgroups | orderBy:'name'" ng-model="album.albumgroup"></select>
                     </div>
 
                 </div>

@@ -14,9 +14,9 @@
                     <div class="controls">
                         <input type="text" data-ng-model="picture.filename" id="filename" class="form-control" placeholder="Filename" required>
                     </div>
-                    <label class="control-label" for="albumid">Album</label>
+                    <label class="control-label" for="album">Album</label>
                     <div class="controls">
-                        <select id="albumid" class="form-control" ng-options="album._id as album.name for album in albums | orderBy:'name'" ng-model="picture.albumid"></select>
+                        <select id="album" class="form-control" ng-options="album._id as album.name for album in albums | orderBy:'name'" ng-model="picture.album"></select>
                     </div>
 
                 </div>

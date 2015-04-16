@@ -11,7 +11,7 @@ angular.module('pictures').controller('PicturesController', ['$scope', '$statePa
 			var picture = new Pictures ({
 				name: this.name,
 				filename: this.filename,
-				albumid: this.albumid
+				album: this.album
 			});
 
 			// Redirect after save

@@ -22,9 +22,9 @@ var PictureSchema = new Schema({
 		required: 'Please fill Picture filename',
 		trim: true
 	},
-	albumid: {
+	album: {
 		type: Schema.ObjectId,
-		ref: 'Albums'
+		ref: 'Album'
 	},
 	created: {
 		type: Date,
