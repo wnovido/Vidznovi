@@ -3,13 +3,15 @@
  */
 'use strict';
 
-angular.module('core').controller('PictureRenderController', ['$scope','$stateParams', 'Pictures',
-    function($scope, $stateParams, Pictures) {
+angular.module('core').controller('PictureRenderController', ['$scope','$stateParams', 'Pictures', 'Albums',
+    function($scope, $stateParams, Pictures, Albums) {
 
         //$scope.pathname = 'modules/core/img/slider/';
-        $scope.pathname = 'modules/photoalbums/b&w/';
+
         $scope.pictures = Pictures.query();
-        $scope.albumid = $stateParams.albumid;
+        $scope.album = $stateParams.album;
+
+        $scope.pathname = 'photoalbums/';
 
     }
 ]);

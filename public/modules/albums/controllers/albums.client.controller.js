@@ -61,7 +61,7 @@ angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams
 		// Find existing Album
 		$scope.findOne = function() {
 			$scope.album = Albums.get({ 
-				albumId: $stateParams.albumId
+				album: $stateParams.album
 			});
 		};
 

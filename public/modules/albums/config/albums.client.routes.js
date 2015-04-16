@@ -18,11 +18,11 @@ angular.module('albums').config(['$stateProvider',
 			templateUrl: 'modules/albums/views/create-album.client.view.html'
 		}).
 		state('viewAlbum', {
-			url: '/albums/:albumId',
+			url: '/albums/:album',
 			templateUrl: 'modules/albums/views/view-album.client.view.html'
 		}).
 		state('editAlbum', {
-			url: '/albums/:albumId/edit',
+			url: '/albums/:album/edit',
 			templateUrl: 'modules/albums/views/edit-album.client.view.html'
 		});
 	}

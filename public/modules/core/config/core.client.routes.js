@@ -13,7 +13,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			templateUrl: 'modules/core/views/home.client.view.html'
 		})
 		.state('pictures_render', {
-			url: '/pictures_render/:albumid',
+			url: '/pictures_render/:album',
 			templateUrl: 'modules/core/views/pictures.render.client.view.html'
 		})
 

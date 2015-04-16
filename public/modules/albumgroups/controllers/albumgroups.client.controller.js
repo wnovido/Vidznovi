@@ -59,7 +59,7 @@ angular.module('albumgroups').controller('AlbumgroupsController', ['$scope', '$s
 		// Find existing Albumgroup
 		$scope.findOne = function() {
 			$scope.albumgroup = Albumgroups.get({ 
-				albumgroupId: $stateParams.albumgroupId
+				albumgroup: $stateParams.albumgroup
 			});
 		};
 	}
