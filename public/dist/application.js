@@ -198,12 +198,13 @@ angular.module('albumgroups').controller('AlbumgroupsController', ['$scope', '$s
 
 		// Find existing Albumgroup
 		$scope.findOne = function() {
-			$scope.albumgroup = Albumgroups.get({ 
+			$scope.albumgroup = Albumgroups.get({
 				albumgroupId: $stateParams.albumgroupId
 			});
 		};
 	}
 ]);
+
 'use strict';
 
 //Albumgroups service used to communicate Albumgroups REST endpoints
@@ -226,7 +227,6 @@ angular.module('albums').run(['Menus',
 		Menus.addMenuItem('topbar', 'Albums', 'albums', 'dropdown', '/albums(/create)?');
 		Menus.addSubMenuItem('topbar', 'albums', 'List Albums', 'albums');
 		Menus.addSubMenuItem('topbar', 'albums', 'New Album', 'albums/create');
-		//Menus.addMenuItem('topbar', 'About Me', 'aboutme', 'item', '/aboutme');
 	}
 ]);
 
@@ -237,10 +237,6 @@ angular.module('albums').config(['$stateProvider',
 	function($stateProvider) {
 		// Albums state routing
 		$stateProvider.
-		state('aboutme', {
-			url: '/aboutme',
-			templateUrl: 'modules/albums/views/aboutme.client.view.html'
-		}).
 		state('listAlbums', {
 			url: '/albums',
 			templateUrl: 'modules/albums/views/list-albums.client.view.html'
@@ -259,6 +255,7 @@ angular.module('albums').config(['$stateProvider',
 		});
 	}
 ]);
+
 'use strict';
 
 // Albums controller
@@ -272,7 +269,7 @@ angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams
 			var album = new Albums ({
 				name: this.name,
 				thumbnail: this.thumbnail,
-				albumgroupid: this.albumgroupid
+				albumgroup: this.albumgroup
 			});
 
 			// Redirect after save
@@ -330,6 +327,7 @@ angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams
 
 	}
 ]);
+
 'use strict';
 
 //Albums service used to communicate Albums REST endpoints
@@ -379,13 +377,14 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			templateUrl: 'modules/core/views/home.client.view.html'
 		})
 		.state('pictures_render', {
-			url: '/pictures_render/:albumid',
+			url: '/pictures_render/:albumId/:albumName/:albumgroupName',
 			templateUrl: 'modules/core/views/pictures.render.client.view.html'
 		})
 
 		;
 	}
 ]);
+
 'use strict';
 
 angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus',
@@ -439,17 +438,47 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
  */
 'use strict';
 
-angular.module('core').controller('PictureRenderController', ['$scope','$stateParams', 'Pictures',
-    function($scope, $stateParams, Pictures) {
+angular.module('core').controller('PictureRenderController', ['$scope','$stateParams', 'Pictures', 'Albums', 'Albumgroups',
+    function($scope, $stateParams, Pictures, Albums, Albumgroups) {
 
         //$scope.pathname = 'modules/core/img/slider/';
-        $scope.pathname = 'modules/photoalbums/b&w/';
+
         $scope.pictures = Pictures.query();
-        $scope.albumid = $stateParams.albumid;
+        $scope.albumFilter = $stateParams.albumId;
+
+        $scope.album = $stateParams.album;
+        $scope.albumId = $stateParams.albumId;
+        //$scope.albumgroupId = $stateParams.albumgroupId;
+        console.log($stateParams.albumId);
+        console.log($stateParams.albumName);
+        console.log($stateParams.albumgroupName);
+        //$scope.album = Albums.get({
+        //    albumId: $stateParams.album._id
+        //});
+
+
+        //$scope.albumgroup = Albumgroups.get(albumgroupId);
+        $scope.pathname = 'photoalbums/' + $stateParams.albumgroupName + '/' + $stateParams.albumName + '/';
+        console.log($scope.pathname);
 
     }
 ]);
 
+'use strict';
+
+angular.module('core').factory('Core', [
+	function() {
+		// Core service logic
+		// ...
+
+		// Public API
+		return {
+			someMethod: function() {
+				return true;
+			}
+		};
+	}
+]);
 'use strict';
 
 //Menu service used for managing  menus
@@ -665,7 +694,7 @@ angular.module('pictures').controller('PicturesController', ['$scope', '$statePa
 			var picture = new Pictures ({
 				name: this.name,
 				filename: this.filename,
-				albumid: this.albumid
+				album: this.album
 			});
 
 			// Redirect after save
@@ -722,6 +751,7 @@ angular.module('pictures').controller('PicturesController', ['$scope', '$statePa
 		$scope.albums = Albums.query();
 	}
 ]);
+
 'use strict';
 
 //Pictures service used to communicate Pictures REST endpoints
