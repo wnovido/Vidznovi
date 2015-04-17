@@ -444,6 +444,7 @@ angular.module('core').controller('PictureRenderController', ['$scope','$statePa
         $scope.pictures = Pictures.query();
         $scope.albumFilter = $stateParams.albumId;
         $scope.pathname = 'modules/core/img/photoalbums/' + $stateParams.albumgroupName + '/' + $stateParams.albumName + '/';
+        
         console.log($stateParams.albumId);
         console.log($stateParams.albumgroupName);
         console.log($stateParams.albumName);

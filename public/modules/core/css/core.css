@@ -243,3 +243,9 @@ fieldset[disabled] .navbar-inverse-edna .btn-link:focus {
 	border: 1px solid #ddd;
 	border-bottom-color: transparent;
 }
+
+IMG.displayed {
+	display: block;
+	margin-left: auto;
+	margin-right: auto
+}

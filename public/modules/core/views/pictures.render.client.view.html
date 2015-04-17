@@ -1,8 +1,5 @@
 <section data-ng-controller="PictureRenderController">
-    <ul>
-        <li data-ng-repeat="picture in pictures | filter:albumFilter">
-            <p class="whiteOnBlack">{{picture.name}}</p>
-            <img data-ng-src="{{pathname + picture.filename}}" class="edna"><br><br>
-        </li>
-    </ul><br>
+        <div data-ng-repeat="picture in pictures | filter:albumFilter">
+            <img data-ng-src="{{pathname + picture.filename}}" class="edna displayed"><br><br>
+        </div>
 </section>
