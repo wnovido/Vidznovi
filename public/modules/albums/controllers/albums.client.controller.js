@@ -11,7 +11,7 @@ angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams
 			var album = new Albums ({
 				name: this.name,
 				thumbnail: this.thumbnail,
-				albumgroupid: this.albumgroupid
+				albumgroup: this.albumgroup
 			});
 
 			// Redirect after save
@@ -61,7 +61,7 @@ angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams
 		// Find existing Album
 		$scope.findOne = function() {
 			$scope.album = Albums.get({ 
-				album: $stateParams.album
+				albumId: $stateParams.albumId
 			});
 		};
 
