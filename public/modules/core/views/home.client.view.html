@@ -3,10 +3,11 @@
 
 		<div class="whiteDgray" style="height: 550px">
 			<carousel interval="myInterval">
-				<slide ng-repeat="slide in slides | filter:'552b211d2f0a70b40f441b56'" active="slide.active">
+				<slide ng-repeat="slide in slides | filter:'B&W'" active="slide.active">
 					<div class="item pCarouselImg">
-						<img class="pCarouselImg" data-ng-src="{{'modules/core/img/photoalbums/Portraits/Hers/' + slide.filename}}" style="margin:auto;">
+						<img class="pCarouselImg" data-ng-src="{{'modules/core/img/photoalbums/Fine Arts/B&W/' + slide.filename}}" style="margin:auto;">
 					</div>
+					<!--{{slide.album}}-->
 					<div class="carousel-caption">
 						<!--<h4>Slide {{$index}}</h4>-->
 						<!--<p>{{slide.text}}</p>-->
@@ -25,7 +26,7 @@
 						<h2>
 							{{album.name}}
 						</h2>
-						<p><a href="/#!/pictures_render/{{album._id}}/{{album.name}}/{{album.albumgroup.name}}" class="thumb"><img ng-src="modules/core/img/slider/{{album.thumbnail}}.jpg" class="thumb-big"></a></p>
+						<p><a href="/#!/pictures_render/{{album._id}}/{{album.name}}/{{album.albumgroup.name}}" class="thumb"><img ng-src="modules/core/img/photoalbums/{{tab.name}}/{{album.name}}/{{album.thumbnail}}.jpg" class="thumb-big"></a></p>
 					</div>
 				</tab>
 

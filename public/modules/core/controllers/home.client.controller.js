@@ -9,26 +9,6 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
 
 		$scope.myInterval = 5000;
 
-		var slides = $scope.slides = [];
-		//$scope.addSlide = function() {
-		//	var newWidth = slides.length + 1;
-		//	slides.push({
-		//		image: 'modules/core/img/slider/' + newWidth + '.jpg',
-		//		text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
-		//		['Gorgeous', 'Cutify', 'Felines', 'Cutes'][slides.length % 4]
-		//	});
-		//};
-		//for (var i=0; i<10; i++) {
-		//	$scope.addSlide();
-		//}
-
-		slides.push({
-					image: 'modules/core/img/photoalbums/Fine Arts/B&W/10452979_10207046983472228_1013604151802666707_o.jpg'
-				});
-		slides.push({
-			image: 'modules/core/img/photoalbums/Fine Arts/B&W/11079581_10207046984472253_5326214675745713581_o.jpg'
-		});
-
 		$scope.tabs = Albumgroups.query();
 		$scope.albums = Albums.query();
 		$scope.slides = Pictures.query();
