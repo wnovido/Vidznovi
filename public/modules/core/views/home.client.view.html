@@ -3,11 +3,15 @@
 
 		<div class="whiteDgray" style="height: 550px">
 			<carousel interval="myInterval">
-				<slide ng-repeat="slide in slides | filter:'B&W'" active="slide.active">
-					<div class="item pCarouselImg">
+				<slide ng-repeat="slide in slides | filter:'B&W'" active="slide.active" data-ng-init="initImg(slide.album._id)">
+					<div class="item pCarouselImg">{{slide}}
 						<img class="pCarouselImg" data-ng-src="{{'modules/core/img/photoalbums/Fine Arts/B&W/' + slide.filename}}" style="margin:auto;">
 					</div>
+					<!--{{slide}}-->
 					<!--{{slide.album}}-->
+					{{album.name}}
+					{{album.albumgroup}}
+					{{albumgroup}}
 					<div class="carousel-caption">
 						<!--<h4>Slide {{$index}}</h4>-->
 						<!--<p>{{slide.text}}</p>-->

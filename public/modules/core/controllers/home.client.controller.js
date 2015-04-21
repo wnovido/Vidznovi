@@ -13,9 +13,15 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
 		$scope.albums = Albums.query();
 		$scope.slides = Pictures.query();
 
-		//this.forEach(function(item){
-		//	console.log(1);
-		//});
+		// Find existing Picture
+		$scope.initImg = function(_id) {
+			var album = Albums.get({
+				albumId: _id
+			});
+			$scope.albumgroup = Albumgroups.get({
+				albumgroupId: album.albumgroup
+			});
 
+		};
 	}
 ]);
