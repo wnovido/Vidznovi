@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'vidznovi-photography';
-	var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils'];
+	var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils', 'smart-table'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {
@@ -21,6 +21,7 @@ var ApplicationConfiguration = (function() {
 		registerModule: registerModule
 	};
 })();
+
 'use strict';
 
 //Start by defining the main module and adding the module dependencies
@@ -406,29 +407,21 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 'use strict';
 
 
-angular.module('core').controller('HomeController', ['$scope', '$animate', 'Authentication', 'Albums', 'Albumgroups',
-	function($scope, $animate, Authentication, Albums, Albumgroups) {
+angular.module('core').controller('HomeController', ['$scope', '$animate', 'Authentication', 'Albums', 'Albumgroups', 'Pictures',
+	function($scope, $animate, Authentication, Albums, Albumgroups, Pictures) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
 		$animate.enabled(false);
 
 		$scope.myInterval = 5000;
-		var slides = $scope.slides = [];
-		$scope.addSlide = function() {
-			var newWidth = slides.length + 1;
-			slides.push({
-				image: 'modules/core/img/slider/' + newWidth + '.jpg',
-				text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
-				['Gorgeous', 'Cutify', 'Felines', 'Cutes'][slides.length % 4]
-			});
-		};
-		for (var i=0; i<10; i++) {
-			$scope.addSlide();
-		}
 
 		$scope.tabs = Albumgroups.query();
 		$scope.albums = Albums.query();
+		$scope.slides = Pictures.query();
 
+		//this.forEach(function(item){
+		//	console.log(1);
+		//});
 
 	}
 ]);
@@ -444,11 +437,6 @@ angular.module('core').controller('PictureRenderController', ['$scope','$statePa
         $scope.pictures = Pictures.query();
         $scope.albumFilter = $stateParams.albumId;
         $scope.pathname = 'modules/core/img/photoalbums/' + $stateParams.albumgroupName + '/' + $stateParams.albumName + '/';
-
-        console.log($stateParams.albumId);
-        console.log($stateParams.albumgroupName);
-        console.log($stateParams.albumName);
-        console.log($scope.pathname);
 
     }
 ]);
@@ -677,6 +665,8 @@ angular.module('pictures').controller('PicturesController', ['$scope', '$statePa
 	function($scope, $stateParams, $location, Authentication, Pictures, Albums) {
 		$scope.authentication = Authentication;
 
+
+
 		// Create new Picture
 		$scope.create = function() {
 			// Create new Picture object
@@ -738,6 +728,7 @@ angular.module('pictures').controller('PicturesController', ['$scope', '$statePa
 		};
 
 		$scope.albums = Albums.query();
+		$scope.displayedCollection = [].concat($scope.pictures);
 	}
 ]);
 
