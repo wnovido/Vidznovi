@@ -419,10 +419,31 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
 		$scope.albums = Albums.query();
 		$scope.slides = Pictures.query();
 
-		//this.forEach(function(item){
-		//	console.log(1);
-		//});
+		// Find existing Picture
+		$scope.initImg = function(_id) {
+			var album = Albums.get({
+				albumId: _id
+			});
 
+			album.$promise.then(function(data) {
+				$scope.albumName = data.name;
+
+				var albumgroup = Albumgroups.get({
+					albumgroupId: data.albumgroup
+				});
+
+				albumgroup.$promise.then(function(data) {
+					$scope.albumgroupName = data.name;
+				});
+			});
+
+			//console.log(album.$promise.name);
+
+			//$scope.albumgroup = Albumgroups.get({
+			//	albumgroupId: album.albumgroup
+			//});
+
+		};
 	}
 ]);
 
@@ -794,12 +815,12 @@ angular.module('users').config(['$stateProvider',
 			url: '/settings/accounts',
 			templateUrl: 'modules/users/views/settings/social-accounts.client.view.html'
 		}).
-		state('signup', {
-			url: '/signup',
+		state('secret-signup-admin', {
+			url: '/secret-signup-admin',
 			templateUrl: 'modules/users/views/authentication/signup.client.view.html'
 		}).
-		state('signin', {
-			url: '/signin',
+		state('secret-signin-admin', {
+			url: '/secret-signin-admin',
 			templateUrl: 'modules/users/views/authentication/signin.client.view.html'
 		}).
 		state('forgot', {
@@ -820,6 +841,7 @@ angular.module('users').config(['$stateProvider',
 		});
 	}
 ]);
+
 'use strict';
 
 angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication',
