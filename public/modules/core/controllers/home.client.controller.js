@@ -18,9 +18,24 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
 			var album = Albums.get({
 				albumId: _id
 			});
-			$scope.albumgroup = Albumgroups.get({
-				albumgroupId: album.albumgroup
+
+			album.$promise.then(function(data) {
+				$scope.albumName = data.name;
+
+				var albumgroup = Albumgroups.get({
+					albumgroupId: data.albumgroup
+				});
+
+				albumgroup.$promise.then(function(data) {
+					$scope.albumgroupName = data.name;
+				});
 			});
+
+			//console.log(album.$promise.name);
+
+			//$scope.albumgroup = Albumgroups.get({
+			//	albumgroupId: album.albumgroup
+			//});
 
 		};
 	}
