@@ -436,13 +436,6 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
 					$scope.albumgroupName = data.name;
 				});
 			});
-
-			//console.log(album.$promise.name);
-
-			//$scope.albumgroup = Albumgroups.get({
-			//	albumgroupId: album.albumgroup
-			//});
-
 		};
 	}
 ]);
