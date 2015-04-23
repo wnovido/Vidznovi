@@ -1,7 +1,7 @@
 <section data-ng-controller="HomeController">
-	<div class="jumbotron text-center whiteDgray">
+	<div class="text-center">
 
-		<div class="whiteDgray" style="height: 550px">
+		<div class="whiteOnBlack" >
 			<carousel interval="myInterval">
 				<slide ng-repeat="slide in slides | filter:'B&W'" active="slide.active" data-ng-init="initImg(slide.album._id)">
 					<div class="item pCarouselImg">
@@ -15,9 +15,7 @@
 				</slide>
 			</carousel>
 		</div>
-
-
-
+		<br><br>
 		<div class="row">
 			<tabset >
 				<tab ng-repeat="tab in tabs">
