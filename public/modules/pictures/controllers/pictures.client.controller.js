@@ -1,11 +1,9 @@
 'use strict';
 
 // Pictures controller
-angular.module('pictures').controller('PicturesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Pictures', 'Albums',
+angular.module('pictures').controller('PicturesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Pictures', 'Albums', '$modal',
 	function($scope, $stateParams, $location, Authentication, Pictures, Albums) {
 		$scope.authentication = Authentication;
-
-
 
 		// Create new Picture
 		$scope.create = function() {
@@ -49,7 +47,7 @@ angular.module('pictures').controller('PicturesController', ['$scope', '$statePa
 			var picture = $scope.picture;
 
 			picture.$update(function() {
-				$location.path('pictures/' + picture._id);
+				$location.path('pictures');
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -68,6 +66,7 @@ angular.module('pictures').controller('PicturesController', ['$scope', '$statePa
 		};
 
 		$scope.albums = Albums.query();
-		$scope.displayedCollection = [].concat($scope.pictures);
+		$scope.displayedPictures = [].concat($scope.pictures);
+
 	}
 ]);

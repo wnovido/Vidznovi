@@ -16,7 +16,7 @@
                 <th st-sort="filename">Filename</th>
                 <th st-sort="album.name">Album</th>
                 <th></th>
-                <!--<th></th>-->
+                <th></th>
                 <!--<th st-sort="balance">balance</th>-->
             </tr>
             <tr>
@@ -24,13 +24,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr data-ng-repeat="picture in displayedCollection">
+            <tr data-ng-repeat="picture in displayedPictures">
                 <td>{{picture.name}}</td>
                 <td>{{picture.filename}}</td>
                 <td>{{picture.album.name}}</td>
+
                 <!--<td>-->
                     <!--<button type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger">-->
-                        <!--<i class="glyphicon glyphicon-remove-circle">-->
+                        <!--<i class="glyphicon glyphicon-trash">-->
                         <!--</i>-->
                     <!--</button>-->
                 <!--</td>-->
@@ -40,9 +41,21 @@
                     <!--by-->
                     <!--<span data-ng-bind="picture.user.displayName"></span>-->
                 <!--</td>-->
-                <td><a ng-href="#!/pictures/{{picture._id}}" class="btn-info btn-sm"><i class="glyphicon glyphicon-edit"></i></a></td>
+                <!--<td><a ng-href="#!/pictures/{{picture._id}}" class="btn-info btn-sm"><i class="glyphicon glyphicon-edit"></i></a></td>-->
+
+                <td><a class="btn btn-info btn-sm" href="/#!/pictures/{{picture._id}}/edit"><i class="glyphicon glyphicon-edit"></i></td></a>
+                <td><a class="btn btn-sm btn-danger" href="/#!/pictures/{{picture._id}}"><i class="glyphicon glyphicon-trash"></i></a></td>
             </tr>
             </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="5" class="text-center">
+                    <div st-pagination="" st-items-by-page="10" st-displayed-pages="100"></div>
+                </td>
+            </tr>
+            </tfoot>
+
+
         </table>
     </div>
 
@@ -65,3 +78,4 @@
     	No Pictures yet, why don't you <a href="/#!/pictures/create">create one</a>?
     </div>
 </section>
+

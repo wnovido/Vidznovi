@@ -3,8 +3,8 @@
  */
 'use strict';
 
-angular.module('core').controller('PictureRenderController', ['$scope','$stateParams', 'Pictures', 'Albums', 'Albumgroups',
-    function($scope, $stateParams, Pictures, Albums, Albumgroups) {
+angular.module('core').controller('PictureRenderController', ['$scope','$stateParams', 'Pictures',
+    function($scope, $stateParams, Pictures) {
 
         $scope.pictures = Pictures.query();
         $scope.albumFilter = $stateParams.albumId;
