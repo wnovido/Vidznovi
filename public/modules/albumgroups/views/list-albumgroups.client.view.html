@@ -2,17 +2,37 @@
     <div class="page-header">
         <h1>Albumgroups</h1>
     </div>
-    <div class="list-group">
-        <a data-ng-repeat="albumgroup in albumgroups" data-ng-href="#!/albumgroups/{{albumgroup._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="albumgroup.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="albumgroup.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="albumgroup.name"></h4>
-        </a>
+
+    <div class="table-responsive">
+        <table st-table="displayed" st-safe-src="albumgroups" class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th colspan="3"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
+            </tr>
+            <tr>
+                <th st-sort="name">Name</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="albumgroup in displayed">
+                <td>{{albumgroup.name}}</td>
+
+                <td><a class="btn btn-info btn-sm" href="/#!/albumgroups/{{albumgroup._id}}/edit"><i class="glyphicon glyphicon-edit"></i></td></a>
+                <td><a class="btn btn-sm btn-danger" href="/#!/albumgroups/{{albumgroup._id}}"><i class="glyphicon glyphicon-trash"></i></a></td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="5" class="text-center">
+                    <div st-pagination="" st-items-by-page="10" st-displayed-pages="100"></div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
     </div>
+
     <div class="alert alert-warning text-center" data-ng-hide="!albumgroups.$resolved || albumgroups.length">
     	No Albumgroups yet, why don't you <a href="/#!/albumgroups/create">create one</a>?
     </div>

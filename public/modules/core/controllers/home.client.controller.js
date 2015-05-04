@@ -1,8 +1,8 @@
 'use strict';
 
 
-angular.module('core').controller('HomeController', ['$scope', '$animate', 'Authentication', 'Albums', 'Albumgroups', 'Pictures',
-	function($scope, $animate, Authentication, Albums, Albumgroups, Pictures) {
+angular.module('core').controller('HomeController', ['$scope', '$animate', 'Authentication', 'Albums', 'Albumgroups', 'Pictures', '$rootScope',
+	function($scope, $animate, Authentication, Albums, Albumgroups, Pictures, $rootScope) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
 		$animate.enabled(false);
@@ -12,6 +12,8 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
 		$scope.tabs = Albumgroups.query();
 		$scope.albums = Albums.query();
 		$scope.slides = Pictures.query();
+
+		$rootScope.mainAlbumDir = 'modules/core/img/photoalbums/';
 
 		// Find existing Picture
 		$scope.initImg = function(_id) {

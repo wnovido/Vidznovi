@@ -1,21 +1,9 @@
 <section data-ng-controller="AlbumsController" data-ng-init="findOne()">
 	<div class="page-header">
-		<h1 data-ng-bind="album.name"></h1>
+		<h1>Delete {{album.name}}?</h1>
 	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == album.user._id))">
-		<a class="btn btn-primary" href="/#!/albums/{{album._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
+	<div class="pull-left" data-ng-show="((authentication.user) && (authentication.user._id == album.user._id))">
+		<a class="btn btn-primary" data-ng-click="remove();">Yes</a>
+		<a class="btn btn-primary" href="/#!/albums">No</a>
 	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="album.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="album.user.displayName"></span>
-		</em>
-	</small>
 </section>

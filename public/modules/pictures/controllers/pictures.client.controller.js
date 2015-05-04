@@ -5,6 +5,8 @@ angular.module('pictures').controller('PicturesController', ['$scope', '$statePa
 	function($scope, $stateParams, $location, Authentication, Pictures, Albums) {
 		$scope.authentication = Authentication;
 
+
+
 		// Create new Picture
 		$scope.create = function() {
 			// Create new Picture object
@@ -16,7 +18,7 @@ angular.module('pictures').controller('PicturesController', ['$scope', '$statePa
 
 			// Redirect after save
 			picture.$save(function(response) {
-				$location.path('pictures/' + response._id);
+				$location.path('pictures');
 
 				// Clear form fields
 				$scope.name = '';
@@ -66,7 +68,7 @@ angular.module('pictures').controller('PicturesController', ['$scope', '$statePa
 		};
 
 		$scope.albums = Albums.query();
+		$scope.pictures = Pictures.query();
 		$scope.displayedPictures = [].concat($scope.pictures);
-
 	}
 ]);

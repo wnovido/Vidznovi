@@ -16,7 +16,7 @@ angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams
 
 			// Redirect after save
 			album.$save(function(response) {
-				$location.path('albums/' + response._id);
+				$location.path('albums');
 
 				// Clear form fields
 				$scope.name = '';
@@ -66,6 +66,6 @@ angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams
 		};
 
 		$scope.albumgroups = Albumgroups.query();
-
+		$scope.displayed = [].concat($scope.albums);
 	}
 ]);

@@ -155,7 +155,7 @@ angular.module('albumgroups').controller('AlbumgroupsController', ['$scope', '$s
 
 			// Redirect after save
 			albumgroup.$save(function(response) {
-				$location.path('albumgroups/' + response._id);
+				$location.path('albumgroups');
 
 				// Clear form fields
 				$scope.name = '';
@@ -203,6 +203,8 @@ angular.module('albumgroups').controller('AlbumgroupsController', ['$scope', '$s
 				albumgroupId: $stateParams.albumgroupId
 			});
 		};
+
+		$scope.displayed = [].concat($scope.albumgroups);
 	}
 ]);
 
@@ -275,7 +277,7 @@ angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams
 
 			// Redirect after save
 			album.$save(function(response) {
-				$location.path('albums/' + response._id);
+				$location.path('albums');
 
 				// Clear form fields
 				$scope.name = '';
@@ -325,7 +327,7 @@ angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams
 		};
 
 		$scope.albumgroups = Albumgroups.query();
-
+		$scope.displayed = [].concat($scope.albums);
 	}
 ]);
 
@@ -407,8 +409,8 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 'use strict';
 
 
-angular.module('core').controller('HomeController', ['$scope', '$animate', 'Authentication', 'Albums', 'Albumgroups', 'Pictures',
-	function($scope, $animate, Authentication, Albums, Albumgroups, Pictures) {
+angular.module('core').controller('HomeController', ['$scope', '$animate', 'Authentication', 'Albums', 'Albumgroups', 'Pictures', '$rootScope',
+	function($scope, $animate, Authentication, Albums, Albumgroups, Pictures, $rootScope) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
 		$animate.enabled(false);
@@ -418,6 +420,8 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
 		$scope.tabs = Albumgroups.query();
 		$scope.albums = Albums.query();
 		$scope.slides = Pictures.query();
+
+		$rootScope.mainAlbumDir = 'modules/core/img/photoalbums/';
 
 		// Find existing Picture
 		$scope.initImg = function(_id) {
@@ -445,13 +449,124 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
  */
 'use strict';
 
-angular.module('core').controller('PictureRenderController', ['$scope','$stateParams', 'Pictures', 'Albums', 'Albumgroups',
-    function($scope, $stateParams, Pictures, Albums, Albumgroups) {
+angular.module('core').controller('PictureController', ['$scope','$stateParams',
+    function($scope, $stateParams) {
+        var pictArray = [];
+        pictArray[0] = [
+            {
+                filepath: 'modules/core/img/slider/1.jpg'
+            },
+            {
+                filepath: 'modules/core/img/slider/2.jpg'
+            }
+        ];
+
+
+        pictArray[2] = [
+            {
+                filepath: 'modules/core/img/slider/5.jpg'
+            },
+            {
+                filepath: 'modules/core/img/slider/6.jpg'
+            }
+        ];
+
+
+        pictArray[1] = [
+            {
+                filepath: 'modules/core/img/slider/3.jpg'
+            },
+            {
+                filepath: 'modules/core/img/slider/4.jpg'
+            }
+        ];
+
+        pictArray[3] = [
+            {
+                filepath: 'modules/core/img/slider/7.jpg'
+            },
+            {
+                filepath: 'modules/core/img/slider/8.jpg'
+            }
+        ];
+
+        pictArray[4] = [
+            {
+                filepath: 'modules/core/img/slider/9.jpg'
+            },
+            {
+                filepath: 'modules/core/img/slider/10.jpg'
+            }
+        ];
+
+
+        pictArray[5] = [
+            {
+                filepath: 'modules/core/img/slider/11.jpg'
+            },
+            {
+                filepath: 'modules/core/img/slider/12.jpg'
+            }
+        ];
+
+
+        pictArray[6] = [
+            {
+                filepath: 'modules/core/img/slider/13.jpg'
+            },
+            {
+                filepath: 'modules/core/img/slider/14.jpg'
+            }
+        ];
+
+        pictArray[7] = [
+            {
+                filepath: 'modules/core/img/slider/15.jpg'
+            },
+            {
+                filepath: 'modules/core/img/slider/16.jpg'
+            }
+        ];
+
+        pictArray[8] = [
+            {
+                filepath: 'modules/core/img/slider/17.jpg'
+            },
+            {
+                filepath: 'modules/core/img/slider/18.jpg'
+            }
+        ];
+
+
+        pictArray[9] = [
+            {
+                filepath: 'modules/core/img/slider/19.jpg'
+            }
+        ];
+
+
+        pictArray[10] = [
+            {
+                filepath: 'modules/core/img/slider/20.jpg'
+            }
+        ];
+
+        $scope.pictures = pictArray[$stateParams.flagId];
+    }
+]);
+
+/**
+ * Created by wilso_000 on 4/9/2015.
+ */
+'use strict';
+
+angular.module('core').controller('PictureRenderController', ['$scope','$stateParams', 'Pictures', '$rootScope',
+    function($scope, $stateParams, Pictures, $rootScope) {
 
         $scope.pictures = Pictures.query();
         $scope.albumFilter = $stateParams.albumId;
-        $scope.pathname = 'modules/core/img/photoalbums/' + $stateParams.albumgroupName + '/' + $stateParams.albumName + '/';
-
+        //$scope.pathname = 'modules/core/img/photoalbums/' + $stateParams.albumgroupName + '/' + $stateParams.albumName + '/';
+        $scope.pathname = $rootScope.mainAlbumDir + $stateParams.albumgroupName + '/' + $stateParams.albumName + '/';
     }
 ]);
 
@@ -675,7 +790,7 @@ angular.module('pictures').config(['$stateProvider',
 'use strict';
 
 // Pictures controller
-angular.module('pictures').controller('PicturesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Pictures', 'Albums',
+angular.module('pictures').controller('PicturesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Pictures', 'Albums', '$modal',
 	function($scope, $stateParams, $location, Authentication, Pictures, Albums) {
 		$scope.authentication = Authentication;
 
@@ -692,7 +807,7 @@ angular.module('pictures').controller('PicturesController', ['$scope', '$statePa
 
 			// Redirect after save
 			picture.$save(function(response) {
-				$location.path('pictures/' + response._id);
+				$location.path('pictures');
 
 				// Clear form fields
 				$scope.name = '';
@@ -723,7 +838,7 @@ angular.module('pictures').controller('PicturesController', ['$scope', '$statePa
 			var picture = $scope.picture;
 
 			picture.$update(function() {
-				$location.path('pictures/' + picture._id);
+				$location.path('pictures');
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -742,7 +857,8 @@ angular.module('pictures').controller('PicturesController', ['$scope', '$statePa
 		};
 
 		$scope.albums = Albums.query();
-		$scope.displayedCollection = [].concat($scope.pictures);
+		$scope.pictures = Pictures.query();
+		$scope.displayedPictures = [].concat($scope.pictures);
 	}
 ]);
 
