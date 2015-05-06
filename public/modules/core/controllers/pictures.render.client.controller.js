@@ -3,7 +3,8 @@
  */
 'use strict';
 
-angular.module('core').controller('PictureRenderController', ['$scope','$stateParams', 'Pictures', '$rootScope',
+angular.module('core')
+.controller('PictureRenderController', ['$scope','$stateParams', 'Pictures', '$rootScope',
     function($scope, $stateParams, Pictures, $rootScope) {
 
         $scope.pictures = Pictures.query();
@@ -11,4 +12,11 @@ angular.module('core').controller('PictureRenderController', ['$scope','$statePa
         //$scope.pathname = 'modules/core/img/photoalbums/' + $stateParams.albumgroupName + '/' + $stateParams.albumName + '/';
         $scope.pathname = $rootScope.mainAlbumDir + $stateParams.albumgroupName + '/' + $stateParams.albumName + '/';
     }
-]);
+])
+.directive("xxxxxxx", function() {
+        return {
+            restrict: "E",
+            template: '<div>{{albumFilter}}</div>'
+        }
+    })
+;

@@ -6,7 +6,9 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Picture = mongoose.model('Picture'),
+    Albumgroup = mongoose.model('Albumgroup'),
 	_ = require('lodash');
+
 
 /**
  * Create a Picture
@@ -73,13 +75,23 @@ exports.delete = function(req, res) {
  * List of Pictures
  */
 exports.list = function(req, res) { 
-	Picture.find().sort('-created').populate('user', 'displayName').populate('album', 'name').exec(function(err, pictures) {
+	Picture.find().sort('-created').populate('user', 'displayName').populate('album').exec(function(err, pictures) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(pictures);
+
+            //Albumgroup.findById(pictures.albumgroup).exec(function(err, albumgroup) {
+            //    if (err) return err;
+            //    if (! albumgroup) return (new Error('Failed to load Albumgroup ' + pictures.albumgroup));
+                //req.albumgroup =  ;
+
+            //});
+            //console.log(pictures);
+
+            res.jsonp(pictures);
+
 		}
 	});
 };

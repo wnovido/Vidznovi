@@ -1,8 +1,8 @@
 'use strict';
 
 // Pictures controller
-angular.module('pictures').controller('PicturesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Pictures', 'Albums', '$modal',
-	function($scope, $stateParams, $location, Authentication, Pictures, Albums) {
+angular.module('pictures').controller('PicturesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Pictures', 'Albums', 'Albumgroups', '$modal',
+	function($scope, $stateParams, $location, Authentication, Pictures, Albums, Albumgroups) {
 		$scope.authentication = Authentication;
 
 
@@ -70,5 +70,20 @@ angular.module('pictures').controller('PicturesController', ['$scope', '$statePa
 		$scope.albums = Albums.query();
 		$scope.pictures = Pictures.query();
 		$scope.displayedPictures = [].concat($scope.pictures);
+
+		// Find existing Picture, I think this can be done in the server, returning the picture's album group
+		$scope.initImg = function(_albumgroupId) {
+				var albumgroup = Albumgroups.get({
+					albumgroupId: _albumgroupId
+				});
+
+				albumgroup.$promise.then(function(data) {
+					$scope.albumgroupName = data.name;
+					//return true;
+				});
+
+				//return false;
+		};
+
 	}
 ]);
