@@ -3,10 +3,10 @@
 
 		<div class="whiteOnBlack" >
 			<carousel interval="myInterval">
-				<slide ng-repeat="slide in slides | filter:'B&W'" active="slide.active" data-ng-init="initImg(slide.album._id)">
+				<slide ng-repeat="slide in slides | filter:sliderAlbum" active="slide.active" data-ng-init="initImg(slide.album._id)">
 					<div class="item pCarouselImg">
 						<!--{{slide}}-->
-						<img class="pCarouselImg" data-ng-src="{{'modules/core/img/photoalbums/'+albumgroupName + '/' + albumName + '/' + slide.filename}}" style="margin:auto;">
+						<img class="pCarouselImg" data-ng-src="{{mainAlbumDir + '/' + albumgroupName + '/' + albumName + '/' + slide.filename}}" style="margin:auto;">
 					</div>
 					<div class="carousel-caption">
 						<!--<h4>Slide {{$index}}</h4>-->
@@ -24,7 +24,7 @@
 						<h2>
 							{{album.name}}
 						</h2>
-						<p><a href="/#!/pictures_render/{{album._id}}/{{album.name}}/{{album.albumgroup.name}}" class="thumb"><img ng-src="modules/core/img/photoalbums/{{tab.name}}/{{album.name}}/{{album.thumbnail}}" class="thumb-big"></a></p>
+						<p><a href="/#!/pictures_render/{{album._id}}/{{album.name}}/{{album.albumgroup.name}}" class="thumb"><img ng-src="{{mainAlbumDir}}/{{tab.name}}/{{album.name}}/{{album.thumbnail}}" class="thumb-big"></a></p>
 					</div>
 				</tab>
 
