@@ -431,9 +431,10 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
 		$scope.albums = Albums.query();
 		$scope.slides = Pictures.query();
 
-		$rootScope.mainAlbumDir = 'modules/core/img/photoalbums/';
+		$rootScope.mainAlbumDir = 'modules/core/img/photoalbums';
+		$rootScope.sliderAlbum = 'b&w';
 
-		// Find existing Picture
+		// Find existing Picture, I think this can be done in the server, returning the picture's album group
 		$scope.initImg = function(_id) {
 			var album = Albums.get({
 				albumId: _id
@@ -459,126 +460,23 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
  */
 'use strict';
 
-angular.module('core').controller('PictureController', ['$scope','$stateParams',
-    function($scope, $stateParams) {
-        var pictArray = [];
-        pictArray[0] = [
-            {
-                filepath: 'modules/core/img/slider/1.jpg'
-            },
-            {
-                filepath: 'modules/core/img/slider/2.jpg'
-            }
-        ];
-
-
-        pictArray[2] = [
-            {
-                filepath: 'modules/core/img/slider/5.jpg'
-            },
-            {
-                filepath: 'modules/core/img/slider/6.jpg'
-            }
-        ];
-
-
-        pictArray[1] = [
-            {
-                filepath: 'modules/core/img/slider/3.jpg'
-            },
-            {
-                filepath: 'modules/core/img/slider/4.jpg'
-            }
-        ];
-
-        pictArray[3] = [
-            {
-                filepath: 'modules/core/img/slider/7.jpg'
-            },
-            {
-                filepath: 'modules/core/img/slider/8.jpg'
-            }
-        ];
-
-        pictArray[4] = [
-            {
-                filepath: 'modules/core/img/slider/9.jpg'
-            },
-            {
-                filepath: 'modules/core/img/slider/10.jpg'
-            }
-        ];
-
-
-        pictArray[5] = [
-            {
-                filepath: 'modules/core/img/slider/11.jpg'
-            },
-            {
-                filepath: 'modules/core/img/slider/12.jpg'
-            }
-        ];
-
-
-        pictArray[6] = [
-            {
-                filepath: 'modules/core/img/slider/13.jpg'
-            },
-            {
-                filepath: 'modules/core/img/slider/14.jpg'
-            }
-        ];
-
-        pictArray[7] = [
-            {
-                filepath: 'modules/core/img/slider/15.jpg'
-            },
-            {
-                filepath: 'modules/core/img/slider/16.jpg'
-            }
-        ];
-
-        pictArray[8] = [
-            {
-                filepath: 'modules/core/img/slider/17.jpg'
-            },
-            {
-                filepath: 'modules/core/img/slider/18.jpg'
-            }
-        ];
-
-
-        pictArray[9] = [
-            {
-                filepath: 'modules/core/img/slider/19.jpg'
-            }
-        ];
-
-
-        pictArray[10] = [
-            {
-                filepath: 'modules/core/img/slider/20.jpg'
-            }
-        ];
-
-        $scope.pictures = pictArray[$stateParams.flagId];
-    }
-]);
-
-/**
- * Created by wilso_000 on 4/9/2015.
- */
-'use strict';
-
-angular.module('core').controller('PictureRenderController', ['$scope','$stateParams', 'Pictures', '$rootScope',
+angular.module('core')
+.controller('PictureRenderController', ['$scope','$stateParams', 'Pictures', '$rootScope',
     function($scope, $stateParams, Pictures, $rootScope) {
 
         $scope.pictures = Pictures.query();
         $scope.albumFilter = $stateParams.albumId;
-        //$scope.pathname = 'modules/core/img/photoalbums/' + $stateParams.albumgroupName + '/' + $stateParams.albumName + '/';
-        $scope.pathname = $rootScope.mainAlbumDir + $stateParams.albumgroupName + '/' + $stateParams.albumName + '/';
+        $scope.pathname = $rootScope.mainAlbumDir + '/' + $stateParams.albumgroupName + '/' + $stateParams.albumName + '/';
     }
-]);
+])
+
+.directive('xxxxxxx', function() {
+        return {
+            restrict: 'E',
+            template: '<div>{{albumFilter}}</div>'
+        };
+    })
+;
 
 'use strict';
 
@@ -800,8 +698,8 @@ angular.module('pictures').config(['$stateProvider',
 'use strict';
 
 // Pictures controller
-angular.module('pictures').controller('PicturesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Pictures', 'Albums', '$modal',
-	function($scope, $stateParams, $location, Authentication, Pictures, Albums) {
+angular.module('pictures').controller('PicturesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Pictures', 'Albums', 'Albumgroups', '$modal',
+	function($scope, $stateParams, $location, Authentication, Pictures, Albums, Albumgroups) {
 		$scope.authentication = Authentication;
 
 
@@ -869,6 +767,26 @@ angular.module('pictures').controller('PicturesController', ['$scope', '$statePa
 		$scope.albums = Albums.query();
 		$scope.pictures = Pictures.query();
 		$scope.displayedPictures = [].concat($scope.pictures);
+
+		// Find existing Picture, I think this can be done in the server, returning the picture's album group
+		$scope.initImg = function(_albumgroupId) {
+				//var albumgroup = Albumgroups.get({
+				//	albumgroupId: _albumgroupId
+				//});
+            var albumgroup = {};
+            albumgroup.albumgroupId = _albumgroupId;
+
+			//$scope.albumgroupx = Albumgroups.get(albumgroup);
+			return albumgroup;
+
+				//albumgroup.$promise.then(function(data) {
+				//	$scope.albumgroupName = data.name;
+				//	return data.name;
+				//});
+
+				//return false;
+		};
+
 	}
 ]);
 
