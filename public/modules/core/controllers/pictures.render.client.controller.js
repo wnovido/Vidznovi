@@ -9,14 +9,14 @@ angular.module('core')
 
         $scope.pictures = Pictures.query();
         $scope.albumFilter = $stateParams.albumId;
-        //$scope.pathname = 'modules/core/img/photoalbums/' + $stateParams.albumgroupName + '/' + $stateParams.albumName + '/';
-        $scope.pathname = $rootScope.mainAlbumDir + $stateParams.albumgroupName + '/' + $stateParams.albumName + '/';
+        $scope.pathname = $rootScope.mainAlbumDir + '/' + $stateParams.albumgroupName + '/' + $stateParams.albumName + '/';
     }
 ])
-.directive("xxxxxxx", function() {
+
+.directive('xxxxxxx', function() {
         return {
-            restrict: "E",
+            restrict: 'E',
             template: '<div>{{albumFilter}}</div>'
-        }
+        };
     })
 ;

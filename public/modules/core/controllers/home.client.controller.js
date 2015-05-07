@@ -13,8 +13,8 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
 		$scope.albums = Albums.query();
 		$scope.slides = Pictures.query();
 
-		$rootScope.mainAlbumDir = 'modules/core/img/photoalbums/';
-		$rootScope.sliderAlbum = 'b&w';
+		$rootScope.mainAlbumDir = 'modules/core/img/photoalbums';
+		$rootScope.sliderAlbum = 'vibe';
 
 		// Find existing Picture, I think this can be done in the server, returning the picture's album group
 		$scope.initImg = function(_id) {
