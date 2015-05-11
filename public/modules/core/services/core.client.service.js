@@ -1,15 +1,20 @@
 'use strict';
 
-angular.module('core').factory('Core', [
-	function() {
-		// Core service logic
-		// ...
+angular.module('core').factory('Core', ['$resource',
+    function($resource) {
+        var resource;
 
-		// Public API
-		return {
-			someMethod: function() {
-				return true;
-			}
-		};
-	}
+        resource = $resource('core/:appSetupName', { appSetupName: ''
+        }, {
+            update: {
+                method: 'PUT'
+            },
+            query: {
+                method: 'GET',
+                isArray: false
+            }
+        });
+
+        return resource;
+    }
 ]);

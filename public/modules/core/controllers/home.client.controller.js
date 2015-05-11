@@ -1,8 +1,8 @@
 'use strict';
 
 
-angular.module('core').controller('HomeController', ['$scope', '$animate', 'Authentication', 'Albums', 'Albumgroups', 'Pictures', '$rootScope',
-	function($scope, $animate, Authentication, Albums, Albumgroups, Pictures, $rootScope) {
+angular.module('core').controller('HomeController', ['$scope', '$animate', 'Authentication', 'Albums', 'Albumgroups', 'Pictures', 'Core', '$rootScope',
+	function($scope, $animate, Authentication, Albums, Albumgroups, Pictures, Core, $rootScope) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
 		$animate.enabled(false);
@@ -13,10 +13,19 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
 		$scope.albums = Albums.query();
 		$scope.slides = Pictures.query();
 
-		$rootScope.mainAlbumDir = 'modules/core/img/photoalbums';
+        //$rootScope.mainAlbumDir = 'modules/core/img/photoalbums';
 		$rootScope.sliderAlbum = 'b&w';
 
-        //Get the slider album here
+        // Get the slider album here
+        var tmp = Core.get({
+            appSetupName: 'Main Album Directory'
+        });
+
+        tmp.$promise.then(function(data) {
+            $rootScope.mainAlbumDir = data.value;
+        });
+
+
 		// Find existing Picture, I think this can be done in the server, returning the picture's album group
 		$scope.initImg = function(_id) {
 			var album = Albums.get({

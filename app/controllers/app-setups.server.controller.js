@@ -5,104 +5,102 @@
  */
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
-	Picture = mongoose.model('Picture'),
-    Albumgroup = mongoose.model('Albumgroup'),
+	AppSetup = mongoose.model('AppSetup'),
 	_ = require('lodash');
 
-
 /**
- * Create a Picture
+ * Create a App setup
  */
 exports.create = function(req, res) {
-	var picture = new Picture(req.body);
-	picture.user = req.user;
+	var appSetup = new AppSetup(req.body);
+	appSetup.user = req.user;
 
-	picture.save(function(err) {
+	appSetup.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(picture);
+			res.jsonp(appSetup);
 		}
 	});
 };
 
 /**
- * Show the current Picture
+ * Show the current App setup
  */
 exports.read = function(req, res) {
-	res.jsonp(req.picture);
+	res.jsonp(req.appSetup);
 };
 
 /**
- * Update a Picture
+ * Update a App setup
  */
 exports.update = function(req, res) {
-	var picture = req.picture ;
+	var appSetup = req.appSetup ;
 
-	picture = _.extend(picture , req.body);
+	appSetup = _.extend(appSetup , req.body);
 
-	picture.save(function(err) {
+	appSetup.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(picture);
+			res.jsonp(appSetup);
 		}
 	});
 };
 
 /**
- * Delete an Picture
+ * Delete an App setup
  */
 exports.delete = function(req, res) {
-	var picture = req.picture ;
+	var appSetup = req.appSetup ;
 
-	picture.remove(function(err) {
+	appSetup.remove(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(picture);
+			res.jsonp(appSetup);
 		}
 	});
 };
 
 /**
- * List of Pictures
+ * List of App setups
  */
 exports.list = function(req, res) { 
-	Picture.find().sort('-created').populate('user', 'displayName').populate('album').exec(function(err, pictures) {
+	AppSetup.find().sort('-created').populate('user', 'displayName').exec(function(err, appSetups) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-            res.jsonp(pictures);
+			res.jsonp(appSetups);
 		}
 	});
 };
 
 /**
- * Picture middleware
+ * App setup middleware
  */
-exports.pictureByID = function(req, res, next, id) { 
-	Picture.findById(id).populate('user', 'displayName').exec(function(err, picture) {
+exports.appSetupByID = function(req, res, next, id) { 
+	AppSetup.findById(id).populate('user', 'displayName').exec(function(err, appSetup) {
 		if (err) return next(err);
-		if (! picture) return next(new Error('Failed to load Picture ' + id));
-		req.picture = picture ;
+		if (! appSetup) return next(new Error('Failed to load App setup ' + id));
+		req.appSetup = appSetup ;
 		next();
 	});
 };
 
 /**
- * Picture authorization middleware
+ * App setup authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.picture.user.id !== req.user.id) {
+	if (req.appSetup.user.id !== req.user.id) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();
