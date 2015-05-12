@@ -9,7 +9,9 @@ angular.module('app-setups').controller('AppSetupsController', ['$scope', '$stat
 		$scope.create = function() {
 			// Create new App setup object
 			var appSetup = new AppSetups ({
-				name: this.name
+				name: this.name,
+				description: this.description,
+				value: this.value
 			});
 
 			// Redirect after save
@@ -18,6 +20,8 @@ angular.module('app-setups').controller('AppSetupsController', ['$scope', '$stat
 
 				// Clear form fields
 				$scope.name = '';
+				$scope.description = '';
+				$scope.value = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});

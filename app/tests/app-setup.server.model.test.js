@@ -30,6 +30,8 @@ describe('App setup Model Unit Tests:', function() {
 		user.save(function() { 
 			appSetup = new AppSetup({
 				name: 'App setup Name',
+				description: 'App setup Description',
+				value: 'App setup Value',
 				user: user
 			});
 
@@ -47,6 +49,15 @@ describe('App setup Model Unit Tests:', function() {
 
 		it('should be able to show an error when try to save without name', function(done) { 
 			appSetup.name = '';
+
+			return appSetup.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to show an error when try to save without value', function(done) {
+			appSetup.value = '';
 
 			return appSetup.save(function(err) {
 				should.exist(err);
