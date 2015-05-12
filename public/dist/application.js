@@ -57,6 +57,10 @@ ApplicationConfiguration.registerModule('albumgroups');
 ApplicationConfiguration.registerModule('albums');
 'use strict';
 
+// Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('app-setups');
+'use strict';
+
 // Use application configuration module to register a new module
 ApplicationConfiguration.registerModule('contact-us');
 
@@ -97,12 +101,14 @@ angular.module('about-me').config(['$stateProvider',
 ]);
 'use strict';
 
-angular.module('about-me').controller('AboutMeController', ['$scope',
-	function($scope) {
+angular.module('about-me').controller('AboutMeController', ['$scope', '$rootScope',
+	function($scope,$rootScope) {
 		// Controller Logic
 		// ...
+        $scope.aboutme = $rootScope.mainAlbumDir + '/' + 'edna2.jpg';
 	}
 ]);
+
 'use strict';
 
 // Configuring the Articles module
@@ -261,16 +267,6 @@ angular.module('albums').config(['$stateProvider',
 
 'use strict';
 
-angular.module('albums').controller('AboutmeController', ['$scope',
-	function($scope) {
-		// Aboutme controller logic
-		// ...
-		$scope.text = 'Edna';
-	}
-]);
-
-'use strict';
-
 // Albums controller
 angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Albums', 'Albumgroups',
 	function($scope, $stateParams, $location, Authentication, Albums, Albumgroups) {
@@ -356,6 +352,128 @@ angular.module('albums').factory('Albums', ['$resource',
 ]);
 'use strict';
 
+// Configuring the Articles module
+angular.module('app-setups').run(['Menus',
+	function(Menus) {
+		// Set top bar menu items
+		Menus.addMenuItem('topbar', 'App setups', 'app-setups', 'dropdown', '/app-setups(/create)?');
+		Menus.addSubMenuItem('topbar', 'app-setups', 'List App setups', 'app-setups');
+		Menus.addSubMenuItem('topbar', 'app-setups', 'New App setup', 'app-setups/create');
+	}
+]);
+'use strict';
+
+//Setting up route
+angular.module('app-setups').config(['$stateProvider',
+	function($stateProvider) {
+		// App setups state routing
+		$stateProvider.
+		state('listAppSetups', {
+			url: '/app-setups',
+			templateUrl: 'modules/app-setups/views/list-app-setups.client.view.html'
+		}).
+		state('createAppSetup', {
+			url: '/app-setups/create',
+			templateUrl: 'modules/app-setups/views/create-app-setup.client.view.html'
+		}).
+		state('viewAppSetup', {
+			url: '/app-setups/:appSetupId',
+			templateUrl: 'modules/app-setups/views/view-app-setup.client.view.html'
+		}).
+		state('editAppSetup', {
+			url: '/app-setups/:appSetupId/edit',
+			templateUrl: 'modules/app-setups/views/edit-app-setup.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+// App setups controller
+angular.module('app-setups').controller('AppSetupsController', ['$scope', '$stateParams', '$location', 'Authentication', 'AppSetups',
+	function($scope, $stateParams, $location, Authentication, AppSetups) {
+		$scope.authentication = Authentication;
+
+		// Create new App setup
+		$scope.create = function() {
+			// Create new App setup object
+			var appSetup = new AppSetups ({
+				name: this.name,
+				description: this.description,
+				value: this.value
+			});
+
+			// Redirect after save
+			appSetup.$save(function(response) {
+				$location.path('app-setups');
+
+				// Clear form fields
+				$scope.name = '';
+				$scope.description = '';
+				$scope.value = '';
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Remove existing App setup
+		$scope.remove = function(appSetup) {
+			if ( appSetup ) { 
+				appSetup.$remove();
+
+				for (var i in $scope.appSetups) {
+					if ($scope.appSetups [i] === appSetup) {
+						$scope.appSetups.splice(i, 1);
+					}
+				}
+			} else {
+				$scope.appSetup.$remove(function() {
+					$location.path('app-setups');
+				});
+			}
+		};
+
+		// Update existing App setup
+		$scope.update = function() {
+			var appSetup = $scope.appSetup;
+
+			appSetup.$update(function() {
+				$location.path('app-setups');
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Find a list of App setups
+		$scope.find = function() {
+			$scope.appSetups = AppSetups.query();
+		};
+
+		// Find existing App setup
+		$scope.findOne = function() {
+			$scope.appSetup = AppSetups.get({ 
+				appSetupId: $stateParams.appSetupId
+			});
+		};
+
+        $scope.displayed = [].concat($scope.appSetups);
+	}
+]);
+
+'use strict';
+
+//App setups service used to communicate App setups REST endpoints
+angular.module('app-setups').factory('AppSetups', ['$resource',
+	function($resource) {
+		return $resource('app-setups/:appSetupId', { appSetupId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
+	}
+]);
+'use strict';
+
 //Setting up route
 angular.module('contact-us').config(['$stateProvider',
 	function($stateProvider) {
@@ -419,22 +537,26 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 'use strict';
 
 
-angular.module('core').controller('HomeController', ['$scope', '$animate', 'Authentication', 'Albums', 'Albumgroups', 'Pictures', '$rootScope',
-	function($scope, $animate, Authentication, Albums, Albumgroups, Pictures, $rootScope) {
+angular.module('core').controller('HomeController', ['$scope', '$animate', 'Authentication', 'Albums', 'Albumgroups', 'Pictures', 'Core', 'AppSetup', '$rootScope',
+	function($scope, $animate, Authentication, Albums, Albumgroups, Pictures, Core, AppSetup, $rootScope) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
 		$animate.enabled(false);
 
 		$scope.myInterval = 5000;
-
 		$scope.tabs = Albumgroups.query();
 		$scope.albums = Albums.query();
-		$scope.slides = Pictures.query();
+		$scope.slides = Core.query();
 
-		$rootScope.mainAlbumDir = 'modules/core/img/photoalbums';
-		$rootScope.sliderAlbum = 'vibe';
 
-		// Find existing Picture, I think this can be done in the server, returning the picture's album group
+        // Get the main album directory from db, can be changed in the future, could be in the server
+        var tmp = AppSetup.get({appSetupName: 'Main Album Directory'});
+        tmp.$promise.then(function(data) {
+            $rootScope.mainAlbumDir = data.value;
+        });
+
+
+        // Find existing Picture, I think this can be done in the server, returning the picture's album group
 		$scope.initImg = function(_id) {
 			var album = Albums.get({
 				albumId: _id
@@ -480,19 +602,37 @@ angular.module('core')
 
 'use strict';
 
-angular.module('core').factory('Core', [
-	function() {
-		// Core service logic
-		// ...
+//Pictures service used to communicate Pictures REST endpoints
+angular.module('core').factory('Core', ['$resource',
+    function($resource) {
+        return $resource('core', {
+            update: {
+                method: 'PUT'
+            }
+        });
+    }
+])
 
-		// Public API
-		return {
-			someMethod: function() {
-				return true;
-			}
-		};
-	}
-]);
+.factory('AppSetup', ['$resource',
+    function($resource) {
+        var resource;
+        resource = $resource('appSetup/:appSetupName', { appSetupName: ''
+        }, {
+            update: {
+                method: 'PUT'
+            },
+            query: {
+                method: 'GET',
+                isArray: false
+            }
+        });
+
+        return resource;
+    }
+])
+
+;
+
 'use strict';
 
 //Menu service used for managing  menus

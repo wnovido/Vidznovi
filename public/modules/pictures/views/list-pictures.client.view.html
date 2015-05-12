@@ -21,11 +21,7 @@
             <tbody>
             <tr data-ng-repeat="picture in displayedPictures">
                 <td>{{picture.name}}</td>
-                <!--<td>{{albumgroupName}}</td>-->
-                <!--<td>{{picture.album.name}}</td>-->
                 <td>{{picture.album.albumgroup}}</td>
-                <!--<td>{{initImg(picture.album.albumgroup)}}</td>-->
-                <!--<td><img  src="modules/core/img/photoalbums/{{albumgroupName}}/{{picture.album.name}}/{{picture.filename}}" class="thumb-sm"/></td>-->
 
                 <td><a class="btn btn-info btn-sm" href="/#!/pictures/{{picture._id}}/edit"><i class="glyphicon glyphicon-edit"></i></td></a>
                 <td><a class="btn btn-sm btn-danger" href="/#!/pictures/{{picture._id}}"><i class="glyphicon glyphicon-trash"></i></a></td>
