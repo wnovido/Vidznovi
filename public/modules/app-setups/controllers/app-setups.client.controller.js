@@ -16,7 +16,7 @@ angular.module('app-setups').controller('AppSetupsController', ['$scope', '$stat
 
 			// Redirect after save
 			appSetup.$save(function(response) {
-				$location.path('app-setups/' + response._id);
+				$location.path('app-setups');
 
 				// Clear form fields
 				$scope.name = '';
@@ -49,7 +49,7 @@ angular.module('app-setups').controller('AppSetupsController', ['$scope', '$stat
 			var appSetup = $scope.appSetup;
 
 			appSetup.$update(function() {
-				$location.path('app-setups/' + appSetup._id);
+				$location.path('app-setups');
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -66,5 +66,7 @@ angular.module('app-setups').controller('AppSetupsController', ['$scope', '$stat
 				appSetupId: $stateParams.appSetupId
 			});
 		};
+
+        $scope.displayed = [].concat($scope.appSetups);
 	}
 ]);

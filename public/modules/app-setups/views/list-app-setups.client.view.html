@@ -2,16 +2,39 @@
     <div class="page-header">
         <h1>App setups</h1>
     </div>
-    <div class="list-group">
-        <a data-ng-repeat="appSetup in appSetups" data-ng-href="#!/app-setups/{{appSetup._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="appSetup.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="appSetup.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="appSetup.name"></h4>
-        </a>
+
+    <div class="table-responsive">
+        <table st-table="displayed" st-safe-src="appSetups" class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
+            </tr>
+            <tr>
+                <th st-sort="name">Name</th>
+                <th st-sort="description">Description</th>
+                <th st-sort="value">Value</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="appSetup in displayed">
+                <td data-ng-bind="appSetup.name"></td>
+                <td data-ng-bind="appSetup.description"></td>
+                <td data-ng-bind="appSetup.value"></td>
+
+                <td><a class="btn btn-info btn-sm" href="/#!/app-setups/{{appSetup._id}}/edit"><i class="glyphicon glyphicon-edit"></i></td></a>
+                <td><a class="btn btn-sm btn-danger" href="/#!/app-setups/{{appSetup._id}}"><i class="glyphicon glyphicon-trash"></i></a></td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="5" class="text-center">
+                    <div st-pagination="" st-items-by-page="10" st-displayed-pages="100"></div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!appSetups.$resolved || appSetups.length">
     	No App setups yet, why don't you <a href="/#!/app-setups/create">create one</a>?

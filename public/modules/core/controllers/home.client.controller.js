@@ -8,25 +8,13 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
 		$animate.enabled(false);
 
 		$scope.myInterval = 5000;
-
-        // Find a list of Pictures
-        $scope.find = function() {
-            $scope.pictures = Core.query();
-        };
-
-        // Find existing Picture
-        //$scope.findOne = function() {
-        //    $scope.picture = Core.get({
-        //        pictureId: $stateParams.pictureId
-        //    });
-        //};
-
 		$scope.tabs = Albumgroups.query();
 		$scope.albums = Albums.query();
 		$scope.slides = Core.query();
 
+
         $rootScope.mainAlbumDir = 'modules/core/img/photoalbums';
-		$rootScope.sliderAlbum = 'b&w';
+		//$rootScope.sliderAlbum = 'b&w';
 
         // Get the slider album here
         //var tmp = AppSetup.get({appSetupName: 'Main Album Directory'});
