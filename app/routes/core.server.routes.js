@@ -9,9 +9,9 @@ module.exports = function(app) {
     app.route('/core')
         .get(core.list);
 
-    //app.route('/appSetup/:appSetupName')
-    //    .get(core.getAppSetupValue);
-    //
+    app.route('/appSetup/:appSetupName')
+        .get(core.getAppSetupValue);
+
     //app.route('/carousel/:albumId')
     //    .get(core.getCarouselAlbum);
 
