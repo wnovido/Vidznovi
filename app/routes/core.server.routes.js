@@ -5,6 +5,10 @@ module.exports = function(app) {
 	var core = require('../../app/controllers/core.server.controller');
 	app.route('/').get(core.index);
 
-    app.route('/core/:appSetupName')
-        .get(core.getAppSetupValue)
+    app.route('/appSetup/:appSetupName')
+        .get(core.getAppSetupValue);
+
+    app.route('/carousel/:albumId')
+        .get(core.getCarouselAlbum);
+
 };

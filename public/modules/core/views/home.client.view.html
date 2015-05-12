@@ -3,7 +3,7 @@
 
 		<div class="whiteOnBlack" >
 			<carousel interval="myInterval">
-				<slide ng-repeat="slide in slides | filter:sliderAlbum" active="slide.active" data-ng-init="initImg(slide.album._id)">
+				<slide ng-repeat="slide in slides" active="slide.active" data-ng-init="initImg(slide.album._id)">
 					<div class="item pCarouselImg">
 						<!--{{slide}}-->
 						<img class="pCarouselImg" data-ng-src="{{mainAlbumDir + '/' + albumgroupName + '/' + albumName + '/' + slide.filename}}" style="margin:auto;">
