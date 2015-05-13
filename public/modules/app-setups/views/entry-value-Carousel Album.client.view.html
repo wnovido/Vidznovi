@@ -1,0 +1,6 @@
+<div class="form-group">
+	<label class="control-label" for="value">Album</label>
+	<div class="controls">
+		<select id="value" class="form-control" ng-options="album._id as album.name for album in albums | orderBy:'name'" ng-model="appSetup.value"></select>
+	</div>
+</div>

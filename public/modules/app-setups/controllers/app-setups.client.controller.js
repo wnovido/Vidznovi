@@ -1,8 +1,8 @@
 'use strict';
 
 // App setups controller
-angular.module('app-setups').controller('AppSetupsController', ['$scope', '$stateParams', '$location', 'Authentication', 'AppSetups',
-	function($scope, $stateParams, $location, Authentication, AppSetups) {
+angular.module('app-setups').controller('AppSetupsController', ['$scope', '$stateParams', '$location', 'Authentication', 'AppSetups', 'Albums',
+	function($scope, $stateParams, $location, Authentication, AppSetups, Albums) {
 		$scope.authentication = Authentication;
 
 		// Create new App setup
@@ -68,5 +68,19 @@ angular.module('app-setups').controller('AppSetupsController', ['$scope', '$stat
 		};
 
         $scope.displayed = [].concat($scope.appSetups);
+        $scope.albums = Albums.query();
 	}
-]);
+])
+.directive('myValue', function() {
+    return {
+        templateUrl: 'modules/app-setups/views/entry-value-' + appSetup.name + '.client.view.html'
+    };
+})
+
+.directive('myDir', function() {
+    return {
+        template: 'modules/app-setups/views/entry-value-{{appSetup.name}}.client.view.html'
+    };
+})
+;
+
