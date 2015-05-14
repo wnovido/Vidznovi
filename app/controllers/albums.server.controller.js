@@ -6,6 +6,8 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Album = mongoose.model('Album'),
+    Albumgroup = mongoose.model('Albumgroup'),
+    mkdirp = require('mkdirp'),
 	_ = require('lodash');
 
 /**
@@ -14,6 +16,20 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 	var album = new Album(req.body);
 	album.user = req.user;
+
+    Albumgroup.findOne().where('_id').equals(album.albumgroup).exec(function(err, albumGroup) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            var dir = 'public/modules/core/img/photoalbums/' + albumGroup.name + '/' + album.name;
+            mkdirp(dir, function (err) {
+                if (err) console.error(err);
+                else console.log(dir + ' created!');
+            });
+        }
+    });
 
 	album.save(function(err) {
 		if (err) {

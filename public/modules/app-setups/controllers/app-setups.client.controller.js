@@ -73,7 +73,17 @@ angular.module('app-setups').controller('AppSetupsController', ['$scope', '$stat
 ])
 .directive('myValue', function() {
     return {
-        templateUrl: 'modules/app-setups/views/entry-value-' + appSetup.name + '.client.view.html'
+        scope: {
+            xName: '=xname',
+            xAlbum: '=xalbum'
+        },
+        link: function (scope, element, attrs) {
+            // now do stuff with the number, you can access it through the scope
+            //scope.xName // contains the number
+        },
+        templateUrl: function (scope, element, attrs) {
+            return 'modules/app-setups/views/entry-value-Carousel Album.client.view.html';
+        }
     };
 })
 

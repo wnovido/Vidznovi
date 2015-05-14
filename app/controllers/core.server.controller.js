@@ -19,7 +19,7 @@ exports.index = function(req, res) {
 
 
 /**
- * List of Pictures
+ * List of Album of Pictures for 'Carousel Album'
  */
 exports.list = function(req, res) {
     AppSetup.findOne().where('name').equals('Carousel Album').sort('-created').populate('user', 'displayName').exec(function(err, appSetup) {

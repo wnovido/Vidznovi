@@ -45,7 +45,7 @@ angular.module('albumgroups').controller('AlbumgroupsController', ['$scope', '$s
 			var albumgroup = $scope.albumgroup;
 
 			albumgroup.$update(function() {
-				$location.path('albumgroups/' + albumgroup._id);
+				$location.path('albumgroups');
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});

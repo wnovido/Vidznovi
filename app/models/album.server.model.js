@@ -19,7 +19,6 @@ var AlbumSchema = new Schema({
 	thumbnail: {
 		type: String,
 		default: '',
-		required: 'Please fill Thumbnail name',
 		trim: true
 	},
 	albumgroup: {

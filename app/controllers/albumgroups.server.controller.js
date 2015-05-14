@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Albumgroup = mongoose.model('Albumgroup'),
+    fs = require('fs'),
 	_ = require('lodash');
 
 /**
@@ -14,6 +15,12 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 	var albumgroup = new Albumgroup(req.body);
 	albumgroup.user = req.user;
+
+    /* This can be global and I think it needs to be in the server */
+	var dir = 'public/modules/core/img/photoalbums/' + albumgroup.name;
+	if (!fs.existsSync(dir)){
+		fs.mkdirSync(dir);
+	}
 
 	albumgroup.save(function(err) {
 		if (err) {
@@ -24,6 +31,8 @@ exports.create = function(req, res) {
 			res.jsonp(albumgroup);
 		}
 	});
+
+
 };
 
 /**
@@ -38,8 +47,18 @@ exports.read = function(req, res) {
  */
 exports.update = function(req, res) {
 	var albumgroup = req.albumgroup ;
+    var dirFrom = 'public/modules/core/img/photoalbums/' + albumgroup.name;
 
-	albumgroup = _.extend(albumgroup , req.body);
+    albumgroup = _.extend(albumgroup , req.body);
+    var dirTo = 'public/modules/core/img/photoalbums/' + albumgroup.name;
+
+    fs.rename(dirFrom, dirTo, function (err) {
+        if (err) throw err;
+        fs.stat(dirTo, function (err, stats) {
+            if (err) throw err;
+            console.log('stats: ' + JSON.stringify(stats));
+        });
+    });
 
 	albumgroup.save(function(err) {
 		if (err) {
@@ -58,7 +77,13 @@ exports.update = function(req, res) {
 exports.delete = function(req, res) {
 	var albumgroup = req.albumgroup ;
 
-	albumgroup.remove(function(err) {
+    /* This can be global and I think it needs to be in the server */
+    var dir = 'public/modules/core/img/photoalbums/' + albumgroup.name;
+    if (fs.existsSync(dir)){
+        fs.rmdirSync(dir);
+    }
+
+    albumgroup.remove(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
