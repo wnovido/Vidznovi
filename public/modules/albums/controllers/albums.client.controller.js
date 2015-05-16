@@ -47,7 +47,7 @@ angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams
 			var album = $scope.album;
 
 			album.$update(function() {
-				$location.path('albums/' + album._id);
+				$location.path('albums');
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
