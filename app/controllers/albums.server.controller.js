@@ -10,6 +10,8 @@ var mongoose = require('mongoose'),
     mkdirp = require('mkdirp'),
 	_ = require('lodash');
 
+var albumLib = require('./main-album-library.server.controller.js');
+
 /**
  * Create a Album
  */
@@ -17,18 +19,18 @@ exports.create = function(req, res) {
 	var album = new Album(req.body);
 	album.user = req.user;
 
-    Albumgroup.findOne().where('_id').equals(album.albumgroup).exec(function(err, albumGroup) {
-        if (err) {
-            return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-            });
-        } else {
-            var dir = 'public/modules/core/img/photoalbums/' + albumGroup.name + '/' + album.name;
-            mkdirp(dir, function (err) {
-                if (err) console.error(err);
-                else console.log(dir + ' created!');
-            });
-        }
+	Albumgroup.findOne().where('_id').equals(album.albumgroup).exec(function(err, albumGroup) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			var dir = albumLib.mainDirectoryAlbum() + albumGroup.name + '/' + album.name;
+			mkdirp(dir, function (err) {
+				if (err) console.error(err);
+				else console.log(dir + ' created!');
+			});
+		}
     });
 
 	album.save(function(err) {
