@@ -65,5 +65,7 @@ exports.albumGroupName = function (req, res, albumGroupId) {
 
 exports.mainDirectoryAlbum = function() {
     return 'public/modules/core/img/photoalbums/';
-}
+};
+
+
 

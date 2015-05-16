@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
 	Album = mongoose.model('Album'),
     Albumgroup = mongoose.model('Albumgroup'),
     mkdirp = require('mkdirp'),
+    rmdir = require('rmdir'),
 	_ = require('lodash');
 
 var albumLib = require('./main-album-library.server.controller.js');
@@ -75,6 +76,21 @@ exports.update = function(req, res) {
  */
 exports.delete = function(req, res) {
 	var album = req.album ;
+
+    Albumgroup.findOne().where('_id').equals(album.albumgroup).exec(function(err, albumGroup) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            var dir = albumLib.mainDirectoryAlbum() + albumGroup.name + '/' + album.name;
+            rmdir(dir, function (err) {
+                if (err) console.error(err);
+                else console.log(dir + ' deleted!');
+            });
+        }
+    });
+
 
 	album.remove(function(err) {
 		if (err) {
