@@ -8,9 +8,8 @@ var mongoose = require('mongoose'),
 	Album = mongoose.model('Album'),
     Albumgroup = mongoose.model('Albumgroup'),
     fs = require('fs'),
+    albumLib = require('./main-album-library.server.controller.js'),
 	_ = require('lodash');
-
-var albumLib = require('./main-album-library.server.controller.js');
 
 /**
  * Create a Album

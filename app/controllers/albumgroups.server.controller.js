@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Albumgroup = mongoose.model('Albumgroup'),
     fs = require('fs'),
+	albumLib = require('./main-album-library.server.controller.js'),
 	_ = require('lodash');
 
 /**
@@ -17,10 +18,11 @@ exports.create = function(req, res) {
 	albumgroup.user = req.user;
 
     /* This can be global and I think it needs to be in the server */
-	var dir = 'public/modules/core/img/photoalbums/' + albumgroup.name;
-	if (!fs.existsSync(dir)){
-		fs.mkdirSync(dir);
-	}
+    var dir = albumLib.mainDirectoryAlbum() + albumgroup.name;
+    fs.mkdir(dir, function (err) {
+        if (err) console.error(err);
+        else console.log(dir + ' created!');
+    });
 
 	albumgroup.save(function(err) {
 		if (err) {
@@ -47,18 +49,15 @@ exports.read = function(req, res) {
  */
 exports.update = function(req, res) {
 	var albumgroup = req.albumgroup ;
-    var dirFrom = 'public/modules/core/img/photoalbums/' + albumgroup.name;
+    var dirFrom = albumLib.mainDirectoryAlbum() + albumgroup.name;
 
     albumgroup = _.extend(albumgroup , req.body);
-    var dirTo = 'public/modules/core/img/photoalbums/' + albumgroup.name;
+    var dirTo = albumLib.mainDirectoryAlbum() + albumgroup.name;
 
-    fs.rename(dirFrom, dirTo, function (err) {
-        if (err) throw err;
-        fs.stat(dirTo, function (err, stats) {
-            if (err) throw err;
-            console.log('stats: ' + JSON.stringify(stats));
-        });
-    });
+	fs.rename(dirFrom, dirTo, function (err) {
+		if (err) console.error(err);
+		else console.log(dirFrom + ' renamed ' + dirTo + '!');
+	});
 
 	albumgroup.save(function(err) {
 		if (err) {
@@ -78,10 +77,12 @@ exports.delete = function(req, res) {
 	var albumgroup = req.albumgroup ;
 
     /* This can be global and I think it needs to be in the server */
-    var dir = 'public/modules/core/img/photoalbums/' + albumgroup.name;
-    if (fs.existsSync(dir)){
-        fs.rmdirSync(dir);
-    }
+
+    var dir = albumLib.mainDirectoryAlbum() + albumgroup.name;
+    fs.rmdir(dir, function (err) {
+        if (err) console.error(err);
+        else console.log(dir + ' deleted!');
+    });
 
     albumgroup.remove(function(err) {
 		if (err) {
