@@ -2,13 +2,13 @@
 
 
 angular.module('core').controller('HomeController', ['$scope', '$animate', 'Authentication', 'Albums', 'Albumgroups', 'Pictures', 'Core', 'AppSetup', '$rootScope',
-	function($scope, $animate, Authentication, Albums, Albumgroups, Pictures, Core, AppSetup, $rootScope) {
+	function($scope, $animate, Authentication, Albums, Tabs, Pictures, Core, AppSetup, $rootScope) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
 		$animate.enabled(false);
 
 		$scope.myInterval = 5000;
-		$scope.tabs = Albumgroups.query();
+		$scope.tabs = Tabs.query();
 		$scope.albums = Albums.query();
 		$scope.slides = Core.query();
 
@@ -29,7 +29,7 @@ angular.module('core').controller('HomeController', ['$scope', '$animate', 'Auth
 			album.$promise.then(function(data) {
 				$scope.albumName = data.name;
 
-				var albumgroup = Albumgroups.get({
+				var albumgroup = Tabs.get({
 					albumgroupId: data.albumgroup
 				});
 

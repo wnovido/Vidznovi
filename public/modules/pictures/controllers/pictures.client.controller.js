@@ -73,21 +73,21 @@ angular.module('pictures').controller('PicturesController', ['$scope', '$statePa
 
 		// Find existing Picture, I think this can be done in the server, returning the picture's album group
 		$scope.initImg = function(_albumgroupId) {
-				//var albumgroup = Albumgroups.get({
-				//	albumgroupId: _albumgroupId
-				//});
-            var albumgroup = {};
-            albumgroup.albumgroupId = _albumgroupId;
+				var albumgroup = Albumgroups.get({
+					albumgroupId: _albumgroupId
+				});
+            //var albumgroup = {};
+            //albumgroup.albumgroupId = _albumgroupId;
 
 			//$scope.albumgroupx = Albumgroups.get(albumgroup);
-			return albumgroup;
+			//return albumgroup;
 
-				//albumgroup.$promise.then(function(data) {
-				//	$scope.albumgroupName = data.name;
-				//	return data.name;
-				//});
+				albumgroup.$promise.then(function(data) {
+					$scope.albumgroupName = data.name;
+					//return data.name;
+				});
 
-				//return false;
+				return true;
 		};
 
 	}
