@@ -267,6 +267,16 @@ angular.module('albums').config(['$stateProvider',
 
 'use strict';
 
+angular.module('albums').controller('AboutmeController', ['$scope',
+	function($scope) {
+		// Aboutme controller logic
+		// ...
+		$scope.text = 'Edna';
+	}
+]);
+
+'use strict';
+
 // Albums controller
 angular.module('albums').controller('AlbumsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Albums', 'Albumgroups',
 	function($scope, $stateParams, $location, Authentication, Albums, Albumgroups) {

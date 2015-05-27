@@ -1,0 +1,36 @@
+Jira Link: https://jira.pathosethos.com‏
+User (gmail acct): wilsonnovido@pathosethos.com
+Password: yY52fdrjhlXPZ5‏
+
+l1l
+gmail: wilsonnovido@pathosethos.com
+password: Edna12015edna1$
+
+
+actual project link: http://dev.mozo.awana.org/#/
+
+
+java coding style 
+https://google-styleguide.googlecode.com/svn/trunk/javaguide.html
+
+
+https://stash.pathosethos.com/scm/aw/awana_web.git
+https://wilsonnovido%40pathosethos.com@stash.pathosethos.com/scm/aw/awana_web.git
+ssh://git@stash.pathosethos.com:7999/aw/awana_club.git‏
+ssh://git@stash.pathosethos.com:7999/aw/awana_web.git
+O0
+40
+
+ssh://git@stash.pathosethos.com:7999/aw/awana_web.git
+ssh://git@stash.pathosethos.com:7999/aw/awana_web.git
+
+ssh://git@stash.pathosethos.com:7999/aw/redactor.git
+
+bugfix/MOZO-258-remove-pacing-bar-from-handbook
+
+
+ssh://git@stash.pathosethos.com:7999/aw/awana_club.git
+
+    "redactor": "https://git@stash.pathosethos.com/scm/aw/redactor.git#~10.0.2",
+	
+	
